@@ -63,7 +63,7 @@ storage.has( 'ingredients', function ( error, hasKey ) {
     }
 } );
 
-let deleteID;
+let currentID;
 const ingredientsList = document.getElementById( 'ingredients_list' );
 
 const editOverlay = document.getElementById( 'edit_overlay' );
@@ -196,7 +196,23 @@ function initIngredients() {
 
 validateBtn.style.cursor = 'pointer';
 validateBtn.onclick = () => {
-    window.location.href = '../html/ingredients.html';
+    let newArray = ingredients;
+    let currentIngredientIndex = ingredients.findIndex( ( ingredient ) => ingredient.id === currentID );
+    let edittedIngredient = {};
+
+    edittedIngredient.name = document.editForm.name.value;
+    edittedIngredient.id = currentID;
+    edittedIngredient.price = document.editForm.price.value;
+    edittedIngredient.price_type = document.editForm.refer_unity.value;
+
+    newArray.splice( currentIngredientIndex, 1 );
+
+    newArray.push( edittedIngredient );
+
+    setIngredients( newArray ).then( () => {
+        window.location.href = '../html/ingredients.html';
+    } );
+
 }
 
 // When radio are changed, selector content will be refreshed
@@ -248,7 +264,7 @@ document.editForm.price_type.forEach( ( radio ) => {
 
 function openEditOverlay( ingredient ) {
     editOverlay.style.display = 'block';
-    deleteID = ingredient.id;
+    currentID = ingredient.id;
     nameField.value = ingredient.name;
     $( 'option' ).remove();
 
@@ -300,8 +316,7 @@ function openEditOverlay( ingredient ) {
 deleteBtn.style.cursor = 'pointer';
 deleteBtn.onclick = () => {
     let newArray = ingredients;
-    let index = newArray.findIndex( ingredient => ingredient.id === deleteID );
-    console.log( index );
+    let index = newArray.findIndex( ingredient => ingredient.id === currentID );
     newArray.splice( index, 1 );
 
     setIngredients( newArray ).then( () => {

@@ -175,3 +175,9 @@ img#delete {
     top: 0;
     right: 0;
 }
+
+#price_container ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
