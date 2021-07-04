@@ -3,23 +3,14 @@
     <head>
         <meta charset="UTF-8" />
         <title>Lucillapp</title>
-        <script src="../js/jquery.min.js"></script>
         <link rel="stylesheet" href="../css/ingredients.css" />
     </head>
     <body>
+        <div id="ingredients_list"></div>
         <div class="topbar">
             <h1>Ingrédients</h1>
             <img src="../../img/white_plus.png" id="add_ingredient_btn" />
         </div>
-
-        <div id="edit_overlay">
-            <div id="box">
-                <img src="../../img/trash.png" id="delete" />
-                <img src="../../img/cross.png" id="cross" />
-            </div>
-        </div>
-
-        <div id="ingredients_list"></div>
 
         <nav class="navbar">
             <ul>
@@ -47,6 +38,50 @@
             </ul>
             <div id="nav_selector"></div>
         </nav>
+        <div id="edit_overlay">
+            <div id="box">
+                <img src="../../img/trash.png" id="delete" />
+                <img src="../../img/cross.png" id="edit_cross" />
+                <h2>Modifier l'ingrédient</h2>
+                <form>
+                    <label for="name_ingredient">Nom </label>
+                    <input type="text" id="name_ingredient" name="name" />
+                    <fieldset>
+                        <legend>Prix</legend>
+                        <input
+                            type="radio"
+                            name="price_type"
+                            value="unity"
+                            id="price_type_choice1"
+                        />
+                        <label for="price_type_choice1">Unité</label>
+                        <input
+                            type="radio"
+                            name="price_type"
+                            value="g"
+                            id="price_type_choice2"
+                        />
+                        <label for="price_type_choice2">Gramme</label>
+                        <input
+                            type="radio"
+                            name="price_type"
+                            value="cL"
+                            id="price_type_choice3"
+                        />
+                        <label for="price_type_choice3">cL</label>
+
+                        <input type="number" />
+                        <p id="u"></p>
+                        <p>=</p>
+                        <input type="number" />
+                        <p>€</p>
+                    </fieldset>
+                    <div id="validate_btn">
+                        <h2>VALIDER</h2>
+                    </div>
+                </form>
+            </div>
+        </div>
     </body>
     <script src="../js/ingredients.js"></script>
     <script src="../js/navbar.js"></script>

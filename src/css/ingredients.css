@@ -2,6 +2,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Helvetica, Arial, sans-serif;
     margin: auto;
+    scroll-margin: 161px;
 }
 
 .topbar {
@@ -116,16 +117,31 @@ div#edit_overlay {
 }
 
 div#box {
-    position: absolute;
+    display: block;
     width: 56%;
     height: 77.5%;
-    top: 50%;
-    left: 50%;
+    margin: auto;
     background-color: white;
+    top: 11.25%;
     border-radius: 3px;
 }
 
 div#box > h2 {
     color: #662912;
     margin: auto;
+}
+
+div#validate_btn {
+    background-color: #e65a29;
+    text-align: center;
+}
+
+div#validate_btn > h2 {
+    color: white;
+    margin: auto;
+}
+
+img#delete {
+    width: 45px;
+    height: 45px;
 }

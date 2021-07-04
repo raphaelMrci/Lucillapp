@@ -34,5 +34,41 @@
         "name": "Oeuf",
         "price_type": "unity",
         "price": 0.5
+    },
+    {
+        "id": 7,
+        "name": "Beurre",
+        "price_type": "g",
+        "price": 7.5
+    },
+    {
+        "id": 8,
+        "name": "Lait",
+        "price_type": "cL",
+        "price": 0.8
+    },
+    {
+        "id": 9,
+        "name": "Eau",
+        "price_type": "cL",
+        "price": 0.1
+    },
+    {
+        "id": 10,
+        "name": "Sel",
+        "price_type": "g",
+        "price": 1
+    },
+    {
+        "id": 11,
+        "name": "Farine",
+        "price_type": "g",
+        "price": 0.8
+    },
+    {
+        "id": 12,
+        "name": "Oeuf",
+        "price_type": "unity",
+        "price": 0.5
     }
 ]
