@@ -12,37 +12,43 @@ storage.has( 'ingredients', function ( error, hasKey ) {
                 "id": 1,
                 "name": "Beurre",
                 "price_type": "kg",
-                "price": 7.5
+                "price": 7.5,
+                "price_qty": 1
             },
             {
                 "id": 2,
                 "name": "Lait",
                 "price_type": "L",
-                "price": 0.8
+                "price": 0.8,
+                "price_qty": 1
             },
             {
                 "id": 3,
                 "name": "Eau",
                 "price_type": "L",
-                "price": 0.1
+                "price": 0.1,
+                "price_qty": 1
             },
             {
                 "id": 4,
                 "name": "Sel",
                 "price_type": "kg",
-                "price": 1
+                "price": 1,
+                "price_qty": 1
             },
             {
                 "id": 5,
                 "name": "Farine",
                 "price_type": "kg",
-                "price": 0.8
+                "price": 0.8,
+                "price_qty": 1
             },
             {
                 "id": 6,
                 "name": "Oeuf",
                 "price_type": "unity",
-                "price": 0.5
+                "price": 0.5,
+                "price_qty": 1
             }
         ];
         console.log( "Ingredient key doesn't exists" );
@@ -161,11 +167,22 @@ function initIngredients() {
             let priceItem = document.createElement( 'li' );
             ul2.appendChild( priceItem );
 
-            let priceString = ingredient.price + '€/';
+            let priceString;
 
-            if ( ingredient.price_type == 'kg' ) {
+            if ( ingredient.price_type == 'kg' || ingredient.price_type == 'L' || ingredient.price_type == 'unity' ) {
+                priceString = ingredient.price / ingredient.price_qty;
+            } else if ( ingredient.price_type == 'g' || ingredient.price_type == 'mL' ) {
+                priceString = ingredient.price / ingredient.price_qty * 1000;
+            } else if ( ingredient.price_type == 'cL' ) {
+                priceString = ingredient.price / ingredient.price_qty * 100;
+            } else if ( ingredient.price_type == 'mg' ) {
+                priceString = ingredient.price / ingredient.price_qty * 1000000;
+            }
+            priceString += '€/';
+
+            if ( ingredient.price_type == 'kg' || ingredient.price_type == 'g' || ingredient.price_type == 'mg' ) {
                 priceString += 'kg';
-            } else if ( ingredient.price_type == 'L' ) {
+            } else if ( ingredient.price_type == 'L' || ingredient.price_type == 'cL' || ingredient.price_type == 'mL' ) {
                 priceString += 'L';
             } else if ( ingredient.price_type == 'unity' ) {
                 priceString += 'pièce';
@@ -196,22 +213,27 @@ function initIngredients() {
 
 validateBtn.style.cursor = 'pointer';
 validateBtn.onclick = () => {
-    let newArray = ingredients;
-    let currentIngredientIndex = ingredients.findIndex( ( ingredient ) => ingredient.id === currentID );
-    let edittedIngredient = {};
+    if ( document.editForm.name.value && currentID && document.editForm.price.value && document.editForm.refer_unity.value && document.editForm.price_qty.value ) {
+        let newArray = ingredients;
+        let currentIngredientIndex = ingredients.findIndex( ( ingredient ) => ingredient.id === currentID );
+        let edittedIngredient = {};
 
-    edittedIngredient.name = document.editForm.name.value;
-    edittedIngredient.id = currentID;
-    edittedIngredient.price = document.editForm.price.value;
-    edittedIngredient.price_type = document.editForm.refer_unity.value;
+        edittedIngredient.name = document.editForm.name.value;
+        edittedIngredient.id = currentID;
+        edittedIngredient.price = document.editForm.price.value;
+        edittedIngredient.price_qty = document.editForm.price_qty.value;
+        edittedIngredient.price_type = document.editForm.refer_unity.value;
 
-    newArray.splice( currentIngredientIndex, 1 );
+        newArray.splice( currentIngredientIndex, 1 );
 
-    newArray.push( edittedIngredient );
+        newArray.push( edittedIngredient );
 
-    setIngredients( newArray ).then( () => {
-        window.location.href = '../html/ingredients.html';
-    } );
+        setIngredients( newArray ).then( () => {
+            window.location.href = '../html/ingredients.html';
+        } );
+    } else {
+        console.warn( 'Edit form incomplete' );
+    }
 
 }
 
@@ -266,6 +288,9 @@ function openEditOverlay( ingredient ) {
     editOverlay.style.display = 'block';
     currentID = ingredient.id;
     nameField.value = ingredient.name;
+    document.editForm.price_qty.value = ingredient.price_qty;
+    document.editForm.price.value = ingredient.price;
+
     $( 'option' ).remove();
 
     if ( ingredient.price_type == 'unity' ) {
@@ -274,7 +299,7 @@ function openEditOverlay( ingredient ) {
         option.value = 'unity';
         option.innerHTML += 'pièce';
         referUnitySelect.appendChild( option );
-    } else if ( ingredient.price_type == 'kg' ) {
+    } else if ( ingredient.price_type == 'kg' || ingredient.price_type == 'g' || ingredient.price_type == 'mg' ) {
         priceTypeKilo.checked = true;
         let option1 = document.createElement( 'option' );
         let option2 = document.createElement( 'option' );
@@ -291,7 +316,7 @@ function openEditOverlay( ingredient ) {
         referUnitySelect.appendChild( option1 );
         referUnitySelect.appendChild( option2 );
         referUnitySelect.appendChild( option3 );
-    } else if ( ingredient.price_type == 'L' ) {
+    } else if ( ingredient.price_type == 'L' || ingredient.price_type == 'cL' || ingredient.price_type == 'mL' ) {
         priceTypeLiter.checked = true;
         let option1 = document.createElement( 'option' );
         let option2 = document.createElement( 'option' );
@@ -311,6 +336,8 @@ function openEditOverlay( ingredient ) {
     } else {
         console.warn( "Ingredient don't have valid unity" );
     }
+
+    document.editForm.refer_unity = ingredient.price_type;
 }
 
 deleteBtn.style.cursor = 'pointer';
