@@ -11,31 +11,31 @@ storage.has( 'ingredients', function ( error, hasKey ) {
         let defaultIngredients = [ {
                 "id": 1,
                 "name": "Beurre",
-                "price_type": "g",
+                "price_type": "kg",
                 "price": 7.5
             },
             {
                 "id": 2,
                 "name": "Lait",
-                "price_type": "cL",
+                "price_type": "L",
                 "price": 0.8
             },
             {
                 "id": 3,
                 "name": "Eau",
-                "price_type": "cL",
+                "price_type": "L",
                 "price": 0.1
             },
             {
                 "id": 4,
                 "name": "Sel",
-                "price_type": "g",
+                "price_type": "kg",
                 "price": 1
             },
             {
                 "id": 5,
                 "name": "Farine",
-                "price_type": "g",
+                "price_type": "kg",
                 "price": 0.8
             },
             {
@@ -71,13 +71,54 @@ const editCross = document.getElementById( 'edit_cross' );
 const deleteBtn = document.getElementById( 'delete' );
 
 function initIngredients() {
-    console.log( ingredients );
 
     if ( ingredients.length > 0 ) {
         let ul1 = document.createElement( 'ul' );
         ingredientsList.appendChild( ul1 );
 
+        // Tri par ordre alphabétique
+        ingredients.sort( ( a, b ) => {
+            if ( a.name > b.name ) {
+                return 1;
+            }
+            if ( b.name > a.name ) {
+                return -1
+            }
+            return 0;
+        } );
+
+        let previousLetter = '#';
+
         ingredients.forEach( ( ingredient, index ) => {
+            if ( index == 0 ) {
+                previousLetter = ingredient.name.charAt( 0 ).toUpperCase();
+                let letterIndexLi = document.createElement( 'li' );
+                ul1.appendChild( letterIndexLi );
+
+                let indexContainer = document.createElement( 'div' );
+                indexContainer.className += 'list-index';
+                letterIndexLi.appendChild( indexContainer );
+
+                let letter = document.createElement( 'h2' );
+                letter.innerHTML += ingredient.name.charAt( 0 ).toUpperCase();
+                indexContainer.appendChild( letter );
+
+            }
+
+            if ( previousLetter != ingredient.name.charAt( 0 ).toUpperCase() ) {
+                previousLetter = ingredient.name.charAt( 0 ).toUpperCase();
+                let letterIndexLi = document.createElement( 'li' );
+                ul1.appendChild( letterIndexLi );
+
+                let indexContainer = document.createElement( 'div' );
+                indexContainer.className += 'list-index';
+                letterIndexLi.appendChild( indexContainer );
+
+                let letter = document.createElement( 'h2' );
+                letter.innerHTML += ingredient.name.charAt( 0 ).toUpperCase();
+                indexContainer.appendChild( letter );
+            }
+
             let li = document.createElement( 'li' );
             ul1.appendChild( li );
 
@@ -112,10 +153,10 @@ function initIngredients() {
 
             let priceString = ingredient.price + '€/';
 
-            if ( ingredient.price_type == 'g' ) {
+            if ( ingredient.price_type == 'kg' ) {
                 priceString += 'kg';
-            } else if ( ingredient.price_type == 'cL' ) {
-                priceString += 'cl';
+            } else if ( ingredient.price_type == 'L' ) {
+                priceString += 'L';
             } else if ( ingredient.price_type == 'unity' ) {
                 priceString += 'pièce';
             } else {

@@ -75,6 +75,21 @@ h1 {
     max-height: 85px;
 }
 
+.list-index {
+    position: -webkit-sticky;
+    position: sticky;
+    width: 100%;
+    height: 42px;
+    top: 101px;
+    background-color: #c5c5c5;
+}
+
+.list-index > h2 {
+    position: relative;
+    left: 1%;
+    color: black;
+}
+
 .list-item ul {
     display: flex;
     flex-direction: row;
