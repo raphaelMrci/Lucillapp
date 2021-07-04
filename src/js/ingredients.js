@@ -69,6 +69,16 @@ const ingredientsList = document.getElementById( 'ingredients_list' );
 const editOverlay = document.getElementById( 'edit_overlay' );
 const editCross = document.getElementById( 'edit_cross' );
 const deleteBtn = document.getElementById( 'delete' );
+const validateBtn = document.getElementById( 'validate_btn' );
+
+
+const nameField = document.getElementById( 'name_ingredient' );
+
+const priceTypeUnity = document.getElementById( 'price_type_choice1' );
+const priceTypeKilo = document.getElementById( 'price_type_choice2' );
+const priceTypeLiter = document.getElementById( 'price_type_choice3' );
+
+const referUnitySelect = document.editForm.refer_unity;
 
 function initIngredients() {
 
@@ -184,12 +194,107 @@ function initIngredients() {
     }
 }
 
+validateBtn.style.cursor = 'pointer';
+validateBtn.onclick = () => {
+    window.location.href = '../html/ingredients.html';
+}
 
+// When radio are changed, selector content will be refreshed
+document.editForm.price_type.forEach( ( radio ) => {
+    radio.addEventListener( 'change', () => {
+        if ( radio.checked ) {
+            $( 'option' ).remove();
+            if ( radio.value == 'unity' ) {
+                let option = document.createElement( 'option' );
+                option.value = 'unity';
+                option.innerHTML += 'pièce';
+                referUnitySelect.appendChild( option );
+            } else if ( radio.value == 'kg' ) {
+                let option1 = document.createElement( 'option' );
+                let option2 = document.createElement( 'option' );
+                let option3 = document.createElement( 'option' );
+
+                option1.value = 'kg';
+                option2.value = 'g';
+                option3.value = 'mg';
+
+                option1.innerHTML += 'kg';
+                option2.innerHTML += 'g';
+                option3.innerHTML += 'mg';
+
+                referUnitySelect.appendChild( option1 );
+                referUnitySelect.appendChild( option2 );
+                referUnitySelect.appendChild( option3 );
+            } else if ( radio.value == 'L' ) {
+                let option1 = document.createElement( 'option' );
+                let option2 = document.createElement( 'option' );
+                let option3 = document.createElement( 'option' );
+
+                option1.value = 'L';
+                option2.value = 'cL';
+                option3.value = 'mL';
+
+                option1.innerHTML += 'L';
+                option2.innerHTML += 'cL';
+                option3.innerHTML += 'mL';
+
+                referUnitySelect.appendChild( option1 );
+                referUnitySelect.appendChild( option2 );
+                referUnitySelect.appendChild( option3 );
+            }
+        }
+    } );
+} );
 
 function openEditOverlay( ingredient ) {
-    console.log( 'Open ' + ingredient.name + ' overlay...' );
     editOverlay.style.display = 'block';
     deleteID = ingredient.id;
+    nameField.value = ingredient.name;
+    $( 'option' ).remove();
+
+    if ( ingredient.price_type == 'unity' ) {
+        priceTypeUnity.checked = true;
+        let option = document.createElement( 'option' );
+        option.value = 'unity';
+        option.innerHTML += 'pièce';
+        referUnitySelect.appendChild( option );
+    } else if ( ingredient.price_type == 'kg' ) {
+        priceTypeKilo.checked = true;
+        let option1 = document.createElement( 'option' );
+        let option2 = document.createElement( 'option' );
+        let option3 = document.createElement( 'option' );
+
+        option1.value = 'kg';
+        option2.value = 'g';
+        option3.value = 'mg';
+
+        option1.innerHTML += 'kg';
+        option2.innerHTML += 'g';
+        option3.innerHTML += 'mg';
+
+        referUnitySelect.appendChild( option1 );
+        referUnitySelect.appendChild( option2 );
+        referUnitySelect.appendChild( option3 );
+    } else if ( ingredient.price_type == 'L' ) {
+        priceTypeLiter.checked = true;
+        let option1 = document.createElement( 'option' );
+        let option2 = document.createElement( 'option' );
+        let option3 = document.createElement( 'option' );
+
+        option1.value = 'L';
+        option2.value = 'cL';
+        option3.value = 'mL';
+
+        option1.innerHTML += 'L';
+        option2.innerHTML += 'cL';
+        option3.innerHTML += 'mL';
+
+        referUnitySelect.appendChild( option1 );
+        referUnitySelect.appendChild( option2 );
+        referUnitySelect.appendChild( option3 );
+    } else {
+        console.warn( "Ingredient don't have valid unity" );
+    }
 }
 
 deleteBtn.style.cursor = 'pointer';

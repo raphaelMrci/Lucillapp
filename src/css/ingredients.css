@@ -132,6 +132,7 @@ div#edit_overlay {
 }
 
 div#box {
+    position: relative;
     display: block;
     width: 56%;
     height: 77.5%;
@@ -139,24 +140,38 @@ div#box {
     background-color: white;
     top: 11.25%;
     border-radius: 3px;
-}
-
-div#box > h2 {
-    color: #662912;
-    margin: auto;
-}
-
-div#validate_btn {
-    background-color: #e65a29;
     text-align: center;
 }
 
-div#validate_btn > h2 {
-    color: white;
+div#box > h2 {
+    font-size: 40px;
+    color: #662912;
+}
+
+#validate_btn {
+    background-color: #e65a29;
+    border-radius: 4px;
+    text-align: center;
+    width: 50%;
+    max-height: 81px;
     margin: auto;
 }
 
+#validate_btn > h2 {
+    color: white;
+    font-size: 36px;
+}
+
 img#delete {
+    position: absolute;
     width: 45px;
     height: 45px;
+    left: 1%;
+    top: 2%;
+}
+
+#edit_cross {
+    position: absolute;
+    top: 0;
+    right: 0;
 }

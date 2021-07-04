@@ -43,7 +43,7 @@
                 <img src="../../img/trash.png" id="delete" />
                 <img src="../../img/cross.png" id="edit_cross" />
                 <h2>Modifier l'ingrédient</h2>
-                <form>
+                <form name="editForm">
                     <label for="name_ingredient">Nom </label>
                     <input type="text" id="name_ingredient" name="name" />
                     <fieldset>
@@ -58,23 +58,32 @@
                         <input
                             type="radio"
                             name="price_type"
-                            value="g"
+                            value="kg"
                             id="price_type_choice2"
                         />
-                        <label for="price_type_choice2">Gramme</label>
+                        <label for="price_type_choice2">Kilo</label>
                         <input
                             type="radio"
                             name="price_type"
-                            value="cL"
+                            value="L"
                             id="price_type_choice3"
                         />
-                        <label for="price_type_choice3">cL</label>
+                        <label for="price_type_choice3">Litre</label>
 
-                        <input type="number" />
-                        <p id="u"></p>
-                        <p>=</p>
-                        <input type="number" />
-                        <p>€</p>
+                        <div id="price_container">
+                            <ul>
+                                <li><input type="number" /></li>
+                                <li>
+                                    <select
+                                        name="refer_unity"
+                                        id="refer-unity-select"
+                                    ></select>
+                                </li>
+                                <li><p>=</p></li>
+                                <li><input type="number" /></li>
+                                <li><p>€</p></li>
+                            </ul>
+                        </div>
                     </fieldset>
                     <div id="validate_btn">
                         <h2>VALIDER</h2>
