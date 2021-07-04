@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Lucillapp</title>
+        <script src="../js/jquery.min.js"></script>
+        <link rel="stylesheet" href="../css/ingredients.css" />
+    </head>
+    <body>
+        <div class="topbar">
+            <h1>Ingrédients</h1>
+            <img src="../../img/white_plus.png" id="add_ingredient_btn" />
+        </div>
+
+        <div id="edit_overlay">
+            <div id="box">
+                <img src="../../img/trash.png" id="delete" />
+                <img src="../../img/cross.png" id="cross" />
+            </div>
+        </div>
+
+        <div id="ingredients_list"></div>
+
+        <nav class="navbar">
+            <ul>
+                <li class="menu-item ingredients">
+                    <img
+                        src="../../img/ingredients.png"
+                        id="ingredients_menu"
+                        class="menu-img"
+                    />
+                </li>
+                <li class="menu-item recipes">
+                    <img
+                        src="../../img/recipes.png"
+                        id="recipes_menu"
+                        class="menu-img"
+                    />
+                </li>
+                <li class="menu-item calculate">
+                    <img
+                        src="../../img/bill.png"
+                        id="calculate_menu"
+                        class="menu-img"
+                    />
+                </li>
+            </ul>
+            <div id="nav_selector"></div>
+        </nav>
+    </body>
+    <script src="../js/ingredients.js"></script>
+    <script src="../js/navbar.js"></script>
+</html>

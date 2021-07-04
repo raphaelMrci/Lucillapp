@@ -1,32 +1,38 @@
-{
-  "1": {
-    "name": "Beurre",
-    "price_type": "kg",
-    "price": 7.5
-  },
-  "2": {
-    "name": "Lait",
-    "price_type": "L",
-    "price": 0.8
-  },
-  "3": {
-    "name": "Eau",
-    "price_type": "L",
-    "price": 0.1
-  },
-  "4": {
-    "name": "Sel",
-    "price_type": "kg",
-    "price": 1
-  },
-  "5": {
-    "name": "Farine",
-    "price_type": "kg",
-    "price": 0.8
-  },
-  "6": {
-    "name": "Oeuf",
-    "price_type": "unity",
-    "price": 0.5
-  }
-}
+[
+    {
+        "id": 1,
+        "name": "Beurre",
+        "price_type": "g",
+        "price": 7.5
+    },
+    {
+        "id": 2,
+        "name": "Lait",
+        "price_type": "cL",
+        "price": 0.8
+    },
+    {
+        "id": 3,
+        "name": "Eau",
+        "price_type": "cL",
+        "price": 0.1
+    },
+    {
+        "id": 4,
+        "name": "Sel",
+        "price_type": "g",
+        "price": 1
+    },
+    {
+        "id": 5,
+        "name": "Farine",
+        "price_type": "g",
+        "price": 0.8
+    },
+    {
+        "id": 6,
+        "name": "Oeuf",
+        "price_type": "unity",
+        "price": 0.5
+    }
+]
