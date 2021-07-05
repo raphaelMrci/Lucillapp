@@ -75,16 +75,53 @@ const ingredientsList = document.getElementById( 'ingredients_list' );
 const editOverlay = document.getElementById( 'edit_overlay' );
 const editCross = document.getElementById( 'edit_cross' );
 const deleteBtn = document.getElementById( 'delete' );
-const validateBtn = document.getElementById( 'validate_btn' );
+const editValidateBtn = document.getElementById( 'edit_validate_btn' );
+const editReferUnitySelect = document.editForm.refer_unity;
 
+const addOverlay = document.getElementById( 'add_overlay' );
+const addCross = document.getElementById( 'add_cross' );
+const addValidateBtn = document.getElementById( 'add_validate_btn' );
+const addBtn = document.getElementById( 'add_ingredient_btn' );
+const addReferUnitySelect = document.addForm.refer_unity;
 
-const nameField = document.getElementById( 'name_ingredient' );
+addValidateBtn.style.cursor = 'pointer';
+addValidateBtn.onclick = () => {
+    if ( document.addForm.name.value && document.addForm.price.value && document.addForm.refer_unity.value && document.addForm.price_qty.value ) {
+        let newArray = ingredients;
+        let newIngredient = {};
 
-const priceTypeUnity = document.getElementById( 'price_type_choice1' );
-const priceTypeKilo = document.getElementById( 'price_type_choice2' );
-const priceTypeLiter = document.getElementById( 'price_type_choice3' );
+        let index = 0;
 
-const referUnitySelect = document.editForm.refer_unity;
+        while ( true ) {
+            index++;
+
+            if ( !newArray.some( ( ingredient ) => ingredient.id === index ) ) {
+                break;
+            }
+        }
+        newIngredient.id = index;
+        newIngredient.name = document.addForm.name.value;
+        newIngredient.price_type = document.addForm.refer_unity.value;
+        newIngredient.price = document.addForm.price.value;
+        newIngredient.price_qty = document.addForm.price_qty.value;
+
+        newArray.push( newIngredient );
+
+        setIngredients( newArray ).then( () => {
+            window.location.href = '../html/ingredients.html';
+        } );
+    }
+}
+
+addBtn.style.cursor = 'pointer';
+addBtn.onclick = () => {
+    addOverlay.style.display = 'block';
+}
+
+addCross.style.cursor = 'pointer';
+addCross.onclick = () => {
+    addOverlay.style.display = 'none';
+}
 
 function initIngredients() {
 
@@ -211,8 +248,8 @@ function initIngredients() {
     }
 }
 
-validateBtn.style.cursor = 'pointer';
-validateBtn.onclick = () => {
+editValidateBtn.style.cursor = 'pointer';
+editValidateBtn.onclick = () => {
     if ( document.editForm.name.value && currentID && document.editForm.price.value && document.editForm.refer_unity.value && document.editForm.price_qty.value ) {
         let newArray = ingredients;
         let currentIngredientIndex = ingredients.findIndex( ( ingredient ) => ingredient.id === currentID );
@@ -238,7 +275,7 @@ validateBtn.onclick = () => {
 }
 
 // When radio are changed, selector content will be refreshed
-document.editForm.price_type.forEach( ( radio ) => {
+document.addForm.price_type.forEach( ( radio ) => {
     radio.addEventListener( 'change', () => {
         if ( radio.checked ) {
             $( 'option' ).remove();
@@ -246,7 +283,7 @@ document.editForm.price_type.forEach( ( radio ) => {
                 let option = document.createElement( 'option' );
                 option.value = 'unity';
                 option.innerHTML += 'pièce';
-                referUnitySelect.appendChild( option );
+                addReferUnitySelect.appendChild( option );
             } else if ( radio.value == 'kg' ) {
                 let option1 = document.createElement( 'option' );
                 let option2 = document.createElement( 'option' );
@@ -260,9 +297,9 @@ document.editForm.price_type.forEach( ( radio ) => {
                 option2.innerHTML += 'g';
                 option3.innerHTML += 'mg';
 
-                referUnitySelect.appendChild( option1 );
-                referUnitySelect.appendChild( option2 );
-                referUnitySelect.appendChild( option3 );
+                addReferUnitySelect.appendChild( option1 );
+                addReferUnitySelect.appendChild( option2 );
+                addReferUnitySelect.appendChild( option3 );
             } else if ( radio.value == 'L' ) {
                 let option1 = document.createElement( 'option' );
                 let option2 = document.createElement( 'option' );
@@ -276,9 +313,56 @@ document.editForm.price_type.forEach( ( radio ) => {
                 option2.innerHTML += 'cL';
                 option3.innerHTML += 'mL';
 
-                referUnitySelect.appendChild( option1 );
-                referUnitySelect.appendChild( option2 );
-                referUnitySelect.appendChild( option3 );
+                addReferUnitySelect.appendChild( option1 );
+                addReferUnitySelect.appendChild( option2 );
+                addReferUnitySelect.appendChild( option3 );
+            }
+        }
+    } );
+} );
+
+// When radio are changed, selector content will be refreshed
+document.editForm.price_type.forEach( ( radio ) => {
+    radio.addEventListener( 'change', () => {
+        if ( radio.checked ) {
+            $( 'option' ).remove();
+            if ( radio.value == 'unity' ) {
+                let option = document.createElement( 'option' );
+                option.value = 'unity';
+                option.innerHTML += 'pièce';
+                editReferUnitySelect.appendChild( option );
+            } else if ( radio.value == 'kg' ) {
+                let option1 = document.createElement( 'option' );
+                let option2 = document.createElement( 'option' );
+                let option3 = document.createElement( 'option' );
+
+                option1.value = 'kg';
+                option2.value = 'g';
+                option3.value = 'mg';
+
+                option1.innerHTML += 'kg';
+                option2.innerHTML += 'g';
+                option3.innerHTML += 'mg';
+
+                editReferUnitySelect.appendChild( option1 );
+                editReferUnitySelect.appendChild( option2 );
+                editReferUnitySelect.appendChild( option3 );
+            } else if ( radio.value == 'L' ) {
+                let option1 = document.createElement( 'option' );
+                let option2 = document.createElement( 'option' );
+                let option3 = document.createElement( 'option' );
+
+                option1.value = 'L';
+                option2.value = 'cL';
+                option3.value = 'mL';
+
+                option1.innerHTML += 'L';
+                option2.innerHTML += 'cL';
+                option3.innerHTML += 'mL';
+
+                editReferUnitySelect.appendChild( option1 );
+                editReferUnitySelect.appendChild( option2 );
+                editReferUnitySelect.appendChild( option3 );
             }
         }
     } );
@@ -287,20 +371,20 @@ document.editForm.price_type.forEach( ( radio ) => {
 function openEditOverlay( ingredient ) {
     editOverlay.style.display = 'block';
     currentID = ingredient.id;
-    nameField.value = ingredient.name;
+    document.editForm.name.value = ingredient.name;
     document.editForm.price_qty.value = ingredient.price_qty;
     document.editForm.price.value = ingredient.price;
 
     $( 'option' ).remove();
 
     if ( ingredient.price_type == 'unity' ) {
-        priceTypeUnity.checked = true;
+        document.editForm.price_type[ 0 ].checked = true;
         let option = document.createElement( 'option' );
         option.value = 'unity';
         option.innerHTML += 'pièce';
-        referUnitySelect.appendChild( option );
+        editReferUnitySelect.appendChild( option );
     } else if ( ingredient.price_type == 'kg' || ingredient.price_type == 'g' || ingredient.price_type == 'mg' ) {
-        priceTypeKilo.checked = true;
+        document.editForm.price_type[ 1 ].checked = true;
         let option1 = document.createElement( 'option' );
         let option2 = document.createElement( 'option' );
         let option3 = document.createElement( 'option' );
@@ -313,11 +397,11 @@ function openEditOverlay( ingredient ) {
         option2.innerHTML += 'g';
         option3.innerHTML += 'mg';
 
-        referUnitySelect.appendChild( option1 );
-        referUnitySelect.appendChild( option2 );
-        referUnitySelect.appendChild( option3 );
+        editReferUnitySelect.appendChild( option1 );
+        editReferUnitySelect.appendChild( option2 );
+        editReferUnitySelect.appendChild( option3 );
     } else if ( ingredient.price_type == 'L' || ingredient.price_type == 'cL' || ingredient.price_type == 'mL' ) {
-        priceTypeLiter.checked = true;
+        document.editForm.price_type[ 2 ].checked = true;
         let option1 = document.createElement( 'option' );
         let option2 = document.createElement( 'option' );
         let option3 = document.createElement( 'option' );
@@ -330,14 +414,14 @@ function openEditOverlay( ingredient ) {
         option2.innerHTML += 'cL';
         option3.innerHTML += 'mL';
 
-        referUnitySelect.appendChild( option1 );
-        referUnitySelect.appendChild( option2 );
-        referUnitySelect.appendChild( option3 );
+        editReferUnitySelect.appendChild( option1 );
+        editReferUnitySelect.appendChild( option2 );
+        editReferUnitySelect.appendChild( option3 );
     } else {
         console.warn( "Ingredient don't have valid unity" );
     }
 
-    document.editForm.refer_unity = ingredient.price_type;
+    document.editForm.refer_unity.value = ingredient.price_type;
 }
 
 deleteBtn.style.cursor = 'pointer';

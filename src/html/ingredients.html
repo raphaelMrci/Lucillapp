@@ -38,48 +38,45 @@
             </ul>
             <div id="nav_selector"></div>
         </nav>
-        <div id="edit_overlay">
-            <div id="box">
+        <div class="overlay" id="edit_overlay">
+            <div class="box">
                 <img src="../../img/trash.png" id="delete" />
-                <img src="../../img/cross.png" id="edit_cross" />
+                <img src="../../img/cross.png" id="edit_cross" class="cross" />
                 <h2>Modifier l'ingrédient</h2>
                 <form name="editForm">
                     <label for="name_ingredient">Nom </label>
-                    <input type="text" id="name_ingredient" name="name" />
+                    <input type="text" id="edit_name_ingredient" name="name" />
                     <fieldset>
                         <legend>Prix</legend>
                         <input
                             type="radio"
                             name="price_type"
                             value="unity"
-                            id="price_type_choice1"
+                            id="edit_price_type_choice1"
                         />
-                        <label for="price_type_choice1">Unité</label>
+                        <label for="edit_price_type_choice1">Unité</label>
                         <input
                             type="radio"
                             name="price_type"
                             value="kg"
-                            id="price_type_choice2"
+                            id="edit_price_type_choice2"
                         />
-                        <label for="price_type_choice2">Kilo</label>
+                        <label for="edit_price_type_choice2">Kilo</label>
                         <input
                             type="radio"
                             name="price_type"
                             value="L"
-                            id="price_type_choice3"
+                            id="edit_price_type_choice3"
                         />
-                        <label for="price_type_choice3">Litre</label>
+                        <label for="edit_price_type_choice3">Litre</label>
 
-                        <div id="price_container">
+                        <div class="price_container">
                             <ul>
                                 <li>
                                     <input type="number" name="price_qty" />
                                 </li>
                                 <li>
-                                    <select
-                                        name="refer_unity"
-                                        id="refer-unity-select"
-                                    ></select>
+                                    <select name="refer_unity"></select>
                                 </li>
                                 <li><p>=</p></li>
                                 <li><input type="number" name="price" /></li>
@@ -87,7 +84,58 @@
                             </ul>
                         </div>
                     </fieldset>
-                    <div id="validate_btn">
+                    <div id="edit_validate_btn" class="validate_btn">
+                        <h2>VALIDER</h2>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="overlay" id="add_overlay">
+            <div class="box">
+                <img src="../../img/cross.png" id="add_cross" class="cross" />
+                <h2>Nouvel ingrédient</h2>
+                <form name="addForm">
+                    <label for="add_name_ingredient">Nom </label>
+                    <input type="text" id="add_name_ingredient" name="name" />
+                    <fieldset>
+                        <legend>Prix</legend>
+                        <input
+                            type="radio"
+                            name="price_type"
+                            value="unity"
+                            id="add_price_type_choice1"
+                        />
+                        <label for="add_price_type_choice1">Unité</label>
+                        <input
+                            type="radio"
+                            name="price_type"
+                            value="kg"
+                            id="add_price_type_choice2"
+                        />
+                        <label for="add_price_type_choice2">Kilo</label>
+                        <input
+                            type="radio"
+                            name="price_type"
+                            value="L"
+                            id="add_price_type_choice3"
+                        />
+                        <label for="add_price_type_choice3">Litre</label>
+
+                        <div class="price_container">
+                            <ul>
+                                <li>
+                                    <input type="number" name="price_qty" />
+                                </li>
+                                <li>
+                                    <select name="refer_unity"></select>
+                                </li>
+                                <li><p>=</p></li>
+                                <li><input type="number" name="price" /></li>
+                                <li><p>€</p></li>
+                            </ul>
+                        </div>
+                    </fieldset>
+                    <div id="add_validate_btn" class="validate_btn">
                         <h2>VALIDER</h2>
                     </div>
                 </form>
