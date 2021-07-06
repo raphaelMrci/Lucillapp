@@ -2,73 +2,113 @@
     {
         "id": 1,
         "name": "Beurre",
-        "price_type": "g",
-        "price": 7.5
+        "price_type": "kg",
+        "price": 7.5,
+        "price_qty": 1
     },
     {
         "id": 2,
         "name": "Lait",
-        "price_type": "cL",
-        "price": 0.8
+        "price_type": "L",
+        "price": 0.8,
+        "price_qty": 1
     },
     {
         "id": 3,
         "name": "Eau",
-        "price_type": "cL",
-        "price": 0.1
+        "price_type": "L",
+        "price": 0.1,
+        "price_qty": 1
     },
     {
         "id": 4,
         "name": "Sel",
-        "price_type": "g",
-        "price": 1
+        "price_type": "kg",
+        "price": 1,
+        "price_qty": 1
     },
     {
         "id": 5,
         "name": "Farine",
-        "price_type": "g",
-        "price": 0.8
+        "price_type": "kg",
+        "price": 0.8,
+        "price_qty": 1
     },
     {
         "id": 6,
         "name": "Oeuf",
         "price_type": "unity",
-        "price": 0.5
+        "price": 0.5,
+        "price_qty": 1
     },
     {
         "id": 7,
-        "name": "Beurre",
-        "price_type": "g",
-        "price": 7.5
+        "name": "Feuille de gélatine",
+        "price_type": "unity",
+        "price": 1,
+        "price_qty": 1
     },
     {
         "id": 8,
-        "name": "Lait",
-        "price_type": "cL",
-        "price": 0.8
+        "name": "Jaune d'oeuf",
+        "price_type": "unity",
+        "price": 1,
+        "price_qty": 1
     },
     {
         "id": 9,
-        "name": "Eau",
-        "price_type": "cL",
-        "price": 0.1
+        "name": "sucre semoule",
+        "price_type": "kg",
+        "price": 1,
+        "price_qty": 1
+    },
+    {
+        "id": 9,
+        "name": "maïzena",
+        "price_type": "kg",
+        "price": 1,
+        "price_qty": 1
     },
     {
         "id": 10,
-        "name": "Sel",
-        "price_type": "g",
-        "price": 1
+        "name": "Sucre roux",
+        "price_type": "kg",
+        "price": 1,
+        "price_qty": 1
     },
     {
         "id": 11,
-        "name": "Farine",
-        "price_type": "g",
-        "price": 0.8
+        "name": "Beurre pommade",
+        "price_type": "kg",
+        "price": 1,
+        "price_qty": 1
     },
     {
         "id": 12,
-        "name": "Oeuf",
-        "price_type": "unity",
-        "price": 0.5
+        "name": "Noisette",
+        "price_type": "kg",
+        "price": 1,
+        "price_qty": 1
+    },
+    {
+        "id": 13,
+        "name": "Amandes",
+        "price_type": "kg",
+        "price": 1,
+        "price_qty": 1
+    },
+    {
+        "id": 14,
+        "name": "Sucre blanc",
+        "price_type": "kg",
+        "price": 1,
+        "price_qty": 1
+    },
+    {
+        "id": 15,
+        "name": "Fleur de sel",
+        "price_type": "kg",
+        "price": 1,
+        "price_qty": 1
     }
 ]

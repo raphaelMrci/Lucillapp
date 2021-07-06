@@ -1,13 +1,186 @@
 [
     {
-        "name": "Pâte à choux",
-        "ingredients": [
-            [1, 110],
-            [2, 125],
-            [3, 125],
-            [4, 5],
-            [5, 145],
-            [6, 5]
+        "id": 1,
+        "name": "pâte à choux",
+        "unity": "g",
+        "qty": 500,
+        "components": [
+            {
+                "id": 1,
+                "group": "ingredients",
+                "qty": 110,
+                "unity": "g"
+            },
+            {
+                "id": 2,
+                "group": "ingredients",
+                "qty": 125,
+                "unity": "cL"
+            },
+            {
+                "id": 3,
+                "group": "ingredients",
+                "qty": 125,
+                "unity": "cL"
+            },
+            {
+                "id": 4,
+                "group": "ingredients",
+                "qty": 5,
+                "unity": "g"
+            },
+            {
+                "id": 5,
+                "group": "ingredients",
+                "qty": 145,
+                "unity": "g"
+            },
+            {
+                "id": 6,
+                "group": "ingredients",
+                "qty": 5,
+                "unity": "piece"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "crème au praliné",
+        "unity": "g",
+        "qty": 200,
+        "components": [
+            {
+                "id": 7,
+                "group": "ingredients",
+                "qty": 1,
+                "unity": "piece"
+            },
+            {
+                "id": 2,
+                "group": "ingredients",
+                "qty": 155,
+                "unity": "cL"
+            },
+            {
+                "id": 8,
+                "group": "ingredients",
+                "qty": 2,
+                "unity": "piece"
+            },
+            {
+                "id": 9,
+                "group": "ingredients",
+                "qty": 30,
+                "unity": "g"
+            },
+            {
+                "id": 9,
+                "group": "ingredients",
+                "qty": 15,
+                "unity": "g"
+            },
+            {
+                "id": 3,
+                "group": "recipes",
+                "qty": 80,
+                "unity": "g"
+            },
+            {
+                "id": 1,
+                "group": "ingredients",
+                "qty": 70,
+                "unity": "g"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Praliné",
+        "unity": "g",
+        "qty": 500,
+        "components": [
+            {
+                "id": 12,
+                "group": "ingredients",
+                "qty": 100,
+                "unity": "g"
+            },
+            {
+                "id": 13,
+                "group": "ingredients",
+                "qty": 100,
+                "unity": "g"
+            },
+            {
+                "id": 14,
+                "group": "ingredients",
+                "qty": 133,
+                "unity": "g"
+            },
+            {
+                "id": 3,
+                "group": "ingredients",
+                "qty": 33,
+                "unity": "cL"
+            },
+            {
+                "id": 15,
+                "group": "ingredients",
+                "qty": 1,
+                "unity": "g"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Paris-Brest",
+        "unity": "piece",
+        "qty": 1,
+        "components": [
+            {
+                "id": 1,
+                "group": "recipes",
+                "qty": 500,
+                "unity": "g"
+            },
+            {
+                "id": 2,
+                "group": "recipes",
+                "qty": 200,
+                "unity": "g"
+            },
+            {
+                "id": 5,
+                "group": "recipes",
+                "qty": 1,
+                "unity": "piece"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Craquelin",
+        "unity": "piece",
+        "qty": 1,
+        "components": [
+            {
+                "id": 5,
+                "group": "ingredients",
+                "qty": 50,
+                "unity": "g"
+            },
+            {
+                "id": 10,
+                "group": "ingredients",
+                "qty": 50,
+                "unity": "g"
+            },
+            {
+                "id": 11,
+                "group": "ingredients",
+                "qty": 40,
+                "unity": "g"
+            }
         ]
     }
 ]

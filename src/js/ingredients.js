@@ -49,19 +49,86 @@ storage.has( 'ingredients', function ( error, hasKey ) {
                 "price_type": "unity",
                 "price": 0.5,
                 "price_qty": 1
+            },
+            {
+                "id": 7,
+                "name": "Feuille de gélatine",
+                "price_type": "unity",
+                "price": 1,
+                "price_qty": 1
+            },
+            {
+                "id": 8,
+                "name": "Jaune d'oeuf",
+                "price_type": "unity",
+                "price": 1,
+                "price_qty": 1
+            },
+            {
+                "id": 9,
+                "name": "sucre semoule",
+                "price_type": "kg",
+                "price": 1,
+                "price_qty": 1
+            },
+            {
+                "id": 9,
+                "name": "maïzena",
+                "price_type": "kg",
+                "price": 1,
+                "price_qty": 1
+            },
+            {
+                "id": 10,
+                "name": "Sucre roux",
+                "price_type": "kg",
+                "price": 1,
+                "price_qty": 1
+            },
+            {
+                "id": 11,
+                "name": "Beurre pommade",
+                "price_type": "kg",
+                "price": 1,
+                "price_qty": 1
+            },
+            {
+                "id": 12,
+                "name": "Noisette",
+                "price_type": "kg",
+                "price": 1,
+                "price_qty": 1
+            },
+            {
+                "id": 13,
+                "name": "Amandes",
+                "price_type": "kg",
+                "price": 1,
+                "price_qty": 1
+            },
+            {
+                "id": 14,
+                "name": "Sucre blanc",
+                "price_type": "kg",
+                "price": 1,
+                "price_qty": 1
+            },
+            {
+                "id": 15,
+                "name": "Fleur de sel",
+                "price_type": "kg",
+                "price": 1,
+                "price_qty": 1
             }
         ];
-        console.log( "Ingredient key doesn't exists" );
         setIngredients( defaultIngredients ).then( () => {
             loadIngredients().then( ( data ) => {
                 ingredients = data;
-                console.log( 'data loaded' );
                 initIngredients();
             } );
         } );
 
     } else {
-        console.log( "Ingredient key exists" );
         loadIngredients().then( ( data ) => {
             ingredients = data;
             initIngredients();
@@ -182,7 +249,6 @@ function initIngredients() {
             // Set a padding to the end of the list to be able to show last elements.
             if ( index == ingredients.length - 1 ) {
                 container.style.paddingBottom = '200px';
-                console.log( 'padding effectué.' );
             }
             li.appendChild( container );
 
