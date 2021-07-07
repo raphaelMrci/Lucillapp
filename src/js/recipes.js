@@ -1,7 +1,4 @@
 const storage = require( 'electron-json-storage' );
-const {
-    data
-} = require( 'jquery' );
 
 let recipes = [];
 let ingredients = [];

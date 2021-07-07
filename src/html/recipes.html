@@ -39,7 +39,41 @@
             </ul>
             <img src="../../img/nav_selector.png" id="nav_selector" />
         </nav>
+
+        <div id="add_overlay" class="overlay">
+            <form name="addForm" id="add-form">
+                <label for="add_name_recipe">Nom</label>
+                <input type="text" name="name" id="add_name_recipe" />
+
+                <ul class="qty-container">
+                    <li><p>pour</p></li>
+                    <li><input type="number" /></li>
+                    <li>
+                        <select name="unity">
+                            <option value="kg">kg</option>
+                            <option value="g">g</option>
+                            <option value="mg">mg</option>
+                            <option value="L">L</option>
+                            <option value="cL">cL</option>
+                            <option value="mL">mL</option>
+                            <option value="piece">pièce-s</option>
+                        </select>
+                    </li>
+                </ul>
+
+                <fieldset>
+                    <legend>Composants</legend>
+                </fieldset>
+            </form>
+
+            <div class="topbar">
+                <h1 id="add_cancel">Annuler</h1>
+                <h3 id="add_validate_btn">Valider</h3>
+                <h2>Nouvelle recette</h2>
+            </div>
+        </div>
     </body>
     <script src="../js/navbar.js"></script>
     <script src="../js/recipes.js"></script>
+    <script src="../js/addRecipe.js"></script>
 </html>
