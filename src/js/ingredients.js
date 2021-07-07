@@ -167,7 +167,8 @@ addValidateBtn.onclick = () => {
             }
         }
         newIngredient.id = index;
-        newIngredient.name = document.addForm.name.value;
+        //Set the first letter to Uppercase
+        newIngredient.name = document.addForm.name.value.charAt( 0 ).toUpperCase() + document.addForm.name.value.slice( 1 );
         newIngredient.price_type = document.addForm.refer_unity.value;
         newIngredient.price = document.addForm.price.value;
         newIngredient.price_qty = document.addForm.price_qty.value;
@@ -281,6 +282,9 @@ function initIngredients() {
             } else if ( ingredient.price_type == 'mg' ) {
                 priceString = ingredient.price / ingredient.price_qty * 1000000;
             }
+
+            //Round the count
+            priceString = Math.round( ( priceString + Number.EPSILON ) * 10 ) / 10;
             priceString += '€/';
 
             if ( ingredient.price_type == 'kg' || ingredient.price_type == 'g' || ingredient.price_type == 'mg' ) {

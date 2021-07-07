@@ -144,7 +144,7 @@ function testRecipes() {
         if ( !hasKey ) {
             let defaultRecipes = [ {
                     "id": 1,
-                    "name": "pâte à choux",
+                    "name": "Pâte à choux",
                     "unity": "g",
                     "qty": 500,
                     "components": [ {
@@ -187,7 +187,7 @@ function testRecipes() {
                 },
                 {
                     "id": 2,
-                    "name": "crème au praliné",
+                    "name": "Crème au praliné",
                     "unity": "g",
                     "qty": 200,
                     "components": [ {
@@ -428,6 +428,9 @@ function initRecipes() {
             } else if ( recipe.unity == 'mg' ) {
                 priceString = calcRecipePrice( recipe ) / recipe.qty * 1000000;
             }
+
+            //Round the count
+            priceString = Math.round( ( priceString + Number.EPSILON ) * 10 ) / 10;
             priceString += '€/';
 
             if ( recipe.unity == 'kg' || recipe.unity == 'g' || recipe.unity == 'mg' ) {
