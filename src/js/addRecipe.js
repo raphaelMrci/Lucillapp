@@ -1,4 +1,4 @@
-const addBtn = document.getElementById( 'add_recipe_btn' );
+const addBtn = document.getElementById('add_recipe_btn');
 
 const addOverlay = document.getElementById( 'add_overlay' );
 const addCancel = document.getElementById( 'add_cancel' );
