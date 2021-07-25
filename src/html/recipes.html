@@ -10,7 +10,11 @@
         <div id="recipes-list"></div>
         <div class="topbar">
             <h1>Recettes</h1>
-            <img src="../../img/white_plus.png" id="add_recipe_btn" />
+            <img
+                src="../../img/white_plus.png"
+                id="add_recipe_btn"
+                style="margin: auto"
+            />
         </div>
 
         <nav class="navbar">
@@ -63,6 +67,8 @@
 
                 <fieldset>
                     <legend>Composants</legend>
+                    <ul class="comp-container"></ul>
+                    <img src="../../img/add.png" id="add-recipe-component" />
                 </fieldset>
             </form>
 
@@ -70,6 +76,26 @@
                 <h1 id="add_cancel">Annuler</h1>
                 <h3 id="add_validate_btn">Valider</h3>
                 <h2>Nouvelle recette</h2>
+            </div>
+        </div>
+
+        <div
+            id="add-component-overlay"
+            class="overlay blured"
+            style="background-color: rgb(0, 0, 0, 0.2)"
+        >
+            <div class="box">
+                <h1 id="cancel-add-component">Annuler</h1>
+                <h3 id="new-ingredient">Créer</h3>
+
+                <div id="tab-selector">
+                    <div id="ing-tab" class="tab">Ingrédients</div>
+                    <div id="rec-tab" class="tab">Recettes</div>
+                </div>
+
+                <div id="list-container">
+                    <ul id="add-comp-list"></ul>
+                </div>
             </div>
         </div>
     </body>

@@ -1,6 +1,9 @@
 const ingredientBtn = document.getElementById( "ingredients" );
 const recipesBtn = document.getElementById( 'recipes' );
 const calculateBtn = document.getElementById( 'calculate' );
+const versionTxt = document.getElementById( 'version' );
+
+versionTxt.innerHTML += ' ' + require( '../../package.json' ).version;
 
 ingredientBtn.style.cursor = 'pointer';
 recipesBtn.style.cursor = 'pointer';

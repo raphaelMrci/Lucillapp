@@ -318,6 +318,7 @@ function initIngredients() {
     }
 }
 
+// Validate modified ingredient
 editValidateBtn.style.cursor = 'pointer';
 editValidateBtn.onclick = () => {
     if ( document.editForm.name.value && currentID && document.editForm.price.value && document.editForm.refer_unity.value && document.editForm.price_qty.value ) {
