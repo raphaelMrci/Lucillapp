@@ -1,55 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Lucillapp</title>
-        <link rel="stylesheet" href="../css/recipes.css" />
-        <link rel="stylesheet" href="../css/navbar.css" />
-        <meta charset="UTF-8" />
-    </head>
-    <body>
-        <div id="recipes-list"></div>
-        <div class="topbar">
-            <h1>Recettes</h1>
-            <img src="../../img/white_plus.png" id="add_recipe_btn" />
-        </div>
 
-        <nav class="navbar">
-            <ul>
-                <li class="menu-item ingredients">
-                    <img
-                        src="../../img/ingredients.png"
-                        id="ingredients_menu"
-                        class="menu-img"
-                    />
-                </li>
-                <li class="menu-item recipes">
-                    <img
-                        src="../../img/recipes.png"
-                        id="recipes_menu"
-                        class="menu-img"
-                    />
-                </li>
-                <li class="menu-item calculate">
-                    <img
-                        src="../../img/bill.png"
-                        id="calculate_menu"
-                        class="menu-img"
-                    />
-                </li>
-            </ul>
-            <img src="../../img/nav_selector.png" id="nav_selector" />
-        </nav>
+<head>
+    <title>Lucillapp</title>
+    <link rel="stylesheet" href="../css/recipes.css" />
+    <link rel="stylesheet" href="../css/navbar.css" />
+    <meta charset="UTF-8" />
+</head>
 
-        <div id="add_overlay" class="overlay">
-            <form name="addForm" id="add-form">
-                <label for="add_name_recipe">Nom</label>
-                <input type="text" name="name" id="add_name_recipe" />
+<body>
+    <div id="recipes-list"></div>
+    <div class="topbar">
+        <h1>Recettes</h1>
+        <img src="../../img/white_plus.png" id="add_recipe_btn" />
+    </div>
 
-                <ul class="qty-container">
-                    <li><p>pour</p></li>
-                    <li><input type="number" /></li>
-                    <li>
-                        <select name="unity">
+    <nav class="navbar">
+        <ul>
+            <li class="menu-item ingredients">
+                <img src="../../img/ingredients.png" id="ingredients_menu" class="menu-img" />
+            </li>
+            <li class="menu-item recipes">
+                <img src="../../img/recipes.png" id="recipes_menu" class="menu-img" />
+            </li>
+            <li class="menu-item calculate">
+                <img src="../../img/bill.png" id="calculate_menu" class="menu-img" />
+            </li>
+        </ul>
+        <img src="../../img/nav_selector.png" id="nav_selector" />
+    </nav>
+
+    <div id="add_overlay" class="overlay">
+        <form name="addForm" id="add-form">
+            <label for="add_name_recipe">Nom</label>
+            <input type="text" name="name" id="add_name_recipe" />
+
+            <ul class="qty-container">
+                <li>
+                    <p>pour</p>
+                </li>
+                <li><input type="number" /></li>
+                <li>
+                    <select name="unity">
                             <option value="kg">kg</option>
                             <option value="g">g</option>
                             <option value="mg">mg</option>
@@ -58,22 +50,43 @@
                             <option value="mL">mL</option>
                             <option value="piece">pièce-s</option>
                         </select>
-                    </li>
+                </li>
+            </ul>
+
+            <fieldset>
+                <legend>Composants</legend>
+                <ul id="component_list">
+                    <li><img src="../../img/add.png" id="add_component" /></li>
                 </ul>
+            </fieldset>
+        </form>
 
-                <fieldset>
-                    <legend>Composants</legend>
-                </fieldset>
-            </form>
-
-            <div class="topbar">
-                <h1 id="add_cancel">Annuler</h1>
-                <h3 id="add_validate_btn">Valider</h3>
-                <h2>Nouvelle recette</h2>
-            </div>
+        <div class="topbar">
+            <h1 id="add_cancel">Annuler</h1>
+            <h3 id="add_validate_btn">Valider</h3>
+            <h2>Nouvelle recette</h2>
         </div>
-    </body>
-    <script src="../js/navbar.js"></script>
-    <script src="../js/recipes.js"></script>
-    <script src="../js/addRecipe.js"></script>
+    </div>
+
+    <div id="add_component_overlay" class="overlay">
+        <div class="box">
+            <div id="add-components-list"></div>
+            <h1>Annuler</h1>
+            <h2>Créer</h2>
+            <div id="ing-select">
+                <h2>Ingrédients</h2>
+            </div>
+            <div id="rec-select">
+                <h2>Recettes</h2>
+            </div>
+
+            <div id="add-comp-btn">Ajouter</div>
+        </div>
+    </div>
+
+</body>
+<script src="../js/navbar.js"></script>
+<script src="../js/recipes.js"></script>
+<script src="../js/addRecipe.js"></script>
+
 </html>
