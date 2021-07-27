@@ -1,4 +1,4 @@
-const addBtn = document.getElementById('add_recipe_btn');
+const addBtn = document.getElementById( 'add_recipe_btn' );
 
 const addOverlay = document.getElementById( 'add_overlay' );
 const addCancel = document.getElementById( 'add_cancel' );
@@ -35,11 +35,14 @@ cancelAddComponent.onclick = () => {
     addComponentOverlay.style.display = 'none';
 }
 
-
+ingredientTab.style.backgroundColor = '#E65A29';
+recipeTab.style.backgroundColor = '#EA9170';
 
 ingredientTab.style.cursor = 'pointer';
 ingredientTab.onclick = () => {
     tab = 'ing';
+    ingredientTab.style.backgroundColor = '#E65A29';
+    recipeTab.style.backgroundColor = '#EA9170';
     newIngredientInComp.style.display = 'block';
 
     let ingredients = [];
@@ -109,30 +112,12 @@ ingredientTab.onclick = () => {
 }
 
 recipeTab.style.cursor = 'pointer';
-ingredientTab.onclick = () => {
+recipeTab.onclick = () => {
     tab = 'rec';
+    ingredientTab.style.backgroundColor = '#EA9170';
+    recipeTab.style.backgroundColor = '#E65A29';
     newIngredientInComp.style.display = 'none';
 
     //remove all the list
     addCompList.innerHTML = '';
-}
-
-function loadIngredients() {
-    return new Promise( ( res, rej ) => {
-        storage.get( 'ingredients', ( err, data ) => {
-            if ( err ) rej( err );
-            res( data );
-        } );
-    } )
-}
-
-function loadRecipes() {
-    console.log( 'Loading Recipes...' );
-    return new Promise( ( res, rej ) => {
-        storage.get( 'recipes', ( err, recArray ) => {
-            if ( err ) rej( err );
-            recipes = recArray;
-            res();
-        } );
-    } )
 }

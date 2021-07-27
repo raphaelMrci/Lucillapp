@@ -1,7 +1,4 @@
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        Helvetica, Arial, sans-serif;
-    margin: auto;
     scroll-margin: 161px;
 }
 
@@ -43,7 +40,7 @@ body {
     transform: translate(0, 50%);
 }
 
-h4 {
+li > h4 {
     color: #b34720;
     font-size: 28px;
 }
@@ -94,7 +91,7 @@ li > h2 {
     font-size: 30px;
 }
 
-h3 {
+li > h3 {
     color: #ea9170;
     font-size: 28px;
 }
@@ -160,4 +157,20 @@ h3 {
     right: 2%;
     margin-top: 1em;
     color: #e65a29;
+}
+
+.tab {
+    width: 50%;
+    float: left;
+    background-color: black;
+    color: white;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    margin-top: 2em;
+}
+
+#tab-selector {
+    width: 300px;
+    height: fit-content;
+    margin: auto;
 }

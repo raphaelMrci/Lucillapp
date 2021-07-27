@@ -66,14 +66,16 @@ h1 {
 
 li > h2 {
     color: #663f31;
+    font-size: 30px;
 }
 
 li {
     list-style-type: none;
 }
 
-h3 {
+li > h3 {
     color: #ea9170;
+    font-size: 28px;
 }
 
 .edit-item {

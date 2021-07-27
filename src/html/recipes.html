@@ -4,6 +4,7 @@
         <title>Lucillapp</title>
         <link rel="stylesheet" href="../css/recipes.css" />
         <link rel="stylesheet" href="../css/navbar.css" />
+        <link rel="stylesheet" href="../css/min.css" />
         <meta charset="UTF-8" />
     </head>
 
@@ -52,7 +53,7 @@
 
                 <ul class="qty-container">
                     <li>
-                        <p>pour</p>
+                        <p>quantité pour</p>
                     </li>
                     <li><input type="number" /></li>
                     <li>
@@ -97,8 +98,20 @@
                 <h1 id="cancel-add-component">Annuler</h1>
                 <h3 id="new-ingredient">Créer</h3>
                 <div id="tab-selector">
-                    <div id="ing-tab" class="tab">Ingrédients</div>
-                    <div id="rec-tab" class="tab">Recettes</div>
+                    <div
+                        id="ing-tab"
+                        class="tab"
+                        style="border-radius: 10px 0 0 10px"
+                    >
+                        Ingrédients
+                    </div>
+                    <div
+                        id="rec-tab"
+                        class="tab"
+                        style="border-radius: 0 10px 10px 0"
+                    >
+                        Recettes
+                    </div>
                 </div>
 
                 <div id="list-container">

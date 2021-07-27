@@ -65,14 +65,14 @@ storage.has( 'ingredients', function ( err, hasIng ) {
             },
             {
                 "id": 9,
-                "name": "sucre semoule",
+                "name": "Sucre semoule",
                 "price_type": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 9,
-                "name": "maïzena",
+                "name": "Maïzena",
                 "price_type": "kg",
                 "price": 1,
                 "price_qty": 1

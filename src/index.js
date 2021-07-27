@@ -22,7 +22,8 @@ const createWindow = () => {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true
-    }
+    },
+    icon: path.join( __dirname, 'favicon.ico' )
   } );
 
   // and load the index.html of the app.
