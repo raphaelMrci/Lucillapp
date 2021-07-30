@@ -80,6 +80,10 @@ li {
     flex-direction: row;
 }
 
+.list-item ul:hover {
+    background-color: rgb(233, 233, 233);
+}
+
 .list-item ul li {
     display: flex;
     align-items: center;
@@ -173,4 +177,62 @@ li > h3 {
     width: 300px;
     height: fit-content;
     margin: auto;
+}
+
+#add-comp-btn {
+    position: absolute;
+    bottom: 3%;
+    right: 5%;
+    background-color: #ea9170;
+    color: white;
+    padding-bottom: 10px;
+    padding-top: 7px;
+    font-size: 1.6em;
+    border-radius: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#add-comp-list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#list-container {
+    text-align: left;
+    position: absolute;
+    width: 100%;
+    top: 10%;
+    height: 90%;
+    overflow-y: auto;
+}
+
+#add-component-overlay.list-item > h2 {
+    position: relative;
+    left: 2%;
+    margin-block: 0;
+}
+
+.list-item:hover {
+    background-color: rgb(233, 233, 233);
+}
+
+#add-component-overlay .list-index h2 {
+    margin-block: 0;
+}
+
+#add-component-overlay .list-item h2 {
+    margin-block: 0;
+    margin-left: 10px;
+}
+
+#add-component-overlay .list-item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#add-component-overlay .selected-item {
+    color: white;
+    background-color: #ea9170;
 }

@@ -26,6 +26,13 @@ h1 {
     color: white;
 }
 
+.topbar > h1 {
+    font-size: 30px;
+    position: absolute;
+    left: 1%;
+    margin-top: 1em;
+}
+
 #ingredients_list {
     position: relative;
     top: 150px;
@@ -55,6 +62,10 @@ h1 {
 .list-item ul {
     display: flex;
     flex-direction: row;
+}
+
+.list-item ul:hover {
+    background-color: rgb(233, 233, 233);
 }
 
 .list-item ul li {
