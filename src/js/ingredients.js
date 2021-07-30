@@ -3,6 +3,11 @@ let ingredients = [];
 
 window.$ = window.jQuery = require( 'jquery' );
 
+
+// Set nav_selector position.
+document.getElementById( 'nav_selector' ).style.left = 'calc(100%/6)';
+
+
 // Check if a list of ingredients already exists, and load or create it.
 storage.has( 'ingredients', function ( error, hasKey ) {
     if ( error ) throw error;

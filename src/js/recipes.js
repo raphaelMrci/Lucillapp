@@ -3,6 +3,11 @@ const storage = require( 'electron-json-storage' );
 let recipes = [];
 let ingredients = [];
 
+
+// Set nav_selector position
+document.getElementById( 'nav_selector' ).style.left = 'calc(100%/2)';
+
+
 storage.has( 'ingredients', function ( err, hasIng ) {
     if ( err ) throw err;
 

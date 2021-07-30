@@ -16,11 +16,55 @@ let addCompList = document.getElementById( 'add-comp-list' );
 
 let selID;
 
+let componentsList = [];
 
 
-addComponentBtn.style.cursor = 'pointer';
+
+
 addComponentBtn.onclick = () => {
-    //TODO: Add the component to the current recipe.
+
+    if ( selID ) {
+        // Split selected item ID (ing/rec _ 0-9+) => ['ing', 18]
+        let compID = selID.split( '_' );
+
+        if ( compID[ 0 ] == 'ing' ) {
+            let ingredients = [];
+
+            function loadIngredientsToAdd() {
+                return new Promise( ( res, rej ) => {
+                    storage.get( 'ingredients', ( err, ingArray ) => {
+                        if ( err ) rej( err );
+                        ingredients = ingArray;
+                        res();
+                    } );
+                } );
+            }
+
+            // Add selected item to the components List
+            loadIngredientsToAdd().then( () => {
+                componentsList.push( ingredients[ compID[ 1 ] ] );
+            } );
+        } else if ( compID[ 1 ] == 'rec' ) {
+            let recipes = [];
+
+            function loadRecipesToAdd() {
+                return new Promise( ( res, rej ) => {
+                    storage.get( 'recipes', ( err, recArray ) => {
+                        if ( err ) rej( err );
+                        recipes = recArray;
+                        res();
+                    } );
+                } );
+            }
+
+            // Add selected item to the components List
+            loadRecipesToAdd().then( () => {
+                componentsList.push( recipes[ compID[ 1 ] ] );
+            } );
+        }
+
+        addComponentOverlay.style.display = 'none';
+    }
 }
 
 addBtn.style.cursor = 'pointer';
@@ -50,19 +94,13 @@ recipeTab.style.backgroundColor = '#EA9170';
 ingredientTab.style.cursor = 'pointer';
 ingredientTab.onclick = () => {
     initIngredients();
+
+
 }
 
 recipeTab.style.cursor = 'pointer';
 recipeTab.onclick = () => {
-    tab = 'rec';
-    ingredientTab.style.backgroundColor = '#EA9170';
-    recipeTab.style.backgroundColor = '#E65A29';
-    newIngredientInComp.style.display = 'none';
-
-    //remove all the list
-    addCompList.innerHTML = '';
-
-    selID = null;
+    initRecipes();
 }
 
 function initIngredients() {
@@ -70,6 +108,9 @@ function initIngredients() {
     ingredientTab.style.backgroundColor = '#E65A29';
     recipeTab.style.backgroundColor = '#EA9170';
     newIngredientInComp.style.display = 'block';
+
+    addComponentBtn.style.backgroundColor = '#EA9170';
+    addComponentBtn.style.cursor = 'default';
 
     selID = null;
 
@@ -92,8 +133,6 @@ function initIngredients() {
     addCompList.innerHTML = '';
 
     loadIngredientsOnComp().then( () => {
-
-        console.log( ingredients );
 
 
         if ( ingredients.length > 0 ) {
@@ -149,15 +188,17 @@ function initIngredients() {
                 container.className += 'list-item';
 
                 container.onclick = () => {
-                    // Set the previous selected ingredient to white
+                    // Unselect previous item
                     if ( selID ) {
                         document.getElementById( selID ).classList.remove( 'selected-item' );
                     }
 
 
+                    addComponentBtn.style.backgroundColor = '#e65a29';
+                    addComponentBtn.style.cursor = 'pointer';
 
-                    //Define the selected ingredient as itself
-                    selID = 'ing' + ingredient.id;
+                    //Select current item
+                    selID = 'ing_' + ingredient.id;
 
                     container.classList.add( 'selected-item' );
                 }
@@ -165,6 +206,113 @@ function initIngredients() {
 
                 let itemName = document.createElement( 'h2' );
                 itemName.innerHTML = ingredient.name;
+                container.appendChild( itemName );
+            } );
+        }
+    } );
+}
+
+function initRecipes() {
+    tab = 'rec';
+    recipeTab.style.backgroundColor = '#E65A29';
+    ingredientTab.style.backgroundColor = '#EA9170';
+    newIngredientInComp.style.display = 'none';
+
+    addComponentBtn.style.backgroundColor = '#EA9170';
+    addComponentBtn.style.cursor = 'default';
+
+    selID = null;
+
+
+
+    let recipes = [];
+
+    function loadRecipesOnComp() {
+        console.log( 'Loading recipes...' );
+        return new Promise( ( res, rej ) => {
+            storage.get( 'recipes', ( err, recArray ) => {
+                if ( err ) rej( err );
+                recipes = recArray;
+                res();
+            } );
+        } );
+    }
+
+    //remove all the list
+    addCompList.innerHTML = '';
+
+    loadRecipesOnComp().then( () => {
+
+        if ( recipes.length > 0 ) {
+            // Tri par ordre alphabétique
+            recipes.sort( ( a, b ) => {
+                if ( a.name > b.name ) {
+                    return 1;
+                }
+                if ( b.name > a.name ) {
+                    return -1
+                }
+                return 0;
+            } );
+
+            let previousLetter = '#';
+
+            recipes.forEach( ( recipe, index ) => {
+                if ( index == 0 ) {
+                    previousLetter = recipe.name.charAt( 0 ).toUpperCase();
+                    let letterIndexLi = document.createElement( 'li' );
+                    addCompList.appendChild( letterIndexLi );
+
+                    let indexContainer = document.createElement( 'div' );
+                    indexContainer.className += 'list-index';
+                    letterIndexLi.appendChild( indexContainer );
+
+                    let letter = document.createElement( 'h2' );
+                    letter.innerHTML += recipe.name.charAt( 0 ).toUpperCase();
+                    indexContainer.appendChild( letter );
+
+                }
+
+                if ( previousLetter != recipe.name.charAt( 0 ).toUpperCase() ) {
+                    previousLetter = recipe.name.charAt( 0 ).toUpperCase();
+                    let letterIndexLi = document.createElement( 'li' );
+                    addCompList.appendChild( letterIndexLi );
+
+                    let indexContainer = document.createElement( 'div' );
+                    indexContainer.className += 'list-index';
+                    letterIndexLi.appendChild( indexContainer );
+
+                    let letter = document.createElement( 'h2' );
+                    letter.innerHTML += recipe.name.charAt( 0 ).toUpperCase();
+                    indexContainer.appendChild( letter );
+                }
+
+                let li = document.createElement( 'li' );
+                addCompList.appendChild( li );
+
+                // Create a container for all the item.
+                let container = document.createElement( 'div' );
+                container.id = 'ing' + recipe.id;
+                container.className += 'list-item';
+
+                container.onclick = () => {
+                    // Unselect previous item
+                    if ( selID ) {
+                        document.getElementById( selID ).classList.remove( 'selected-item' );
+                    }
+
+                    addComponentBtn.style.backgroundColor = '#e65a29';
+                    addComponentBtn.style.cursor = 'pointer';
+
+                    //Select current item
+                    selID = 'rec_' + recipe.id;
+
+                    container.classList.add( 'selected-item' );
+                }
+                li.appendChild( container );
+
+                let itemName = document.createElement( 'h2' );
+                itemName.innerHTML = recipe.name;
                 container.appendChild( itemName );
             } );
         }

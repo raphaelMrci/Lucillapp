@@ -2,7 +2,6 @@ const ingredientBtn = document.getElementById( 'ingredients_menu' );
 const recipesBtn = document.getElementById( 'recipes_menu' );
 const calculateBtn = document.getElementById( 'calculate_menu' );
 
-const selector = document.getElementById( 'nav_selector' );
 
 
 ingredientBtn.style.cursor = 'pointer';
@@ -15,6 +14,7 @@ ingredientBtn.onclick = () => {
 
 recipesBtn.onclick = () => {
     window.location.href = '../html/recipes.html';
+
 }
 
 calculateBtn.onclick = () => {

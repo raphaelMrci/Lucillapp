@@ -10,6 +10,7 @@
 .navbar ul {
     display: flex;
     flex-direction: row;
+    padding: 0;
 }
 
 .navbar ul li {
@@ -22,6 +23,8 @@
 #nav_selector {
     position: absolute;
     bottom: 0;
+    z-index: -1;
+    transform: translate(-50%, 0);
 }
 
 .menu-item {
