@@ -1,4 +1,12 @@
+window.$ = window.jQuery = require( 'jquery' );
+
 const addBtn = document.getElementById( 'add_recipe_btn' );
+
+const newIngredientOverlayOnRecipe = document.getElementById( 'new-ingredient-overlay' );
+
+const cancelNewIngredientOnRecipe = document.getElementById( 'new-ingredient-cancel' );
+const validateNewIngredientOnRecipe = document.getElementById( 'new-ingredient-validate' );
+
 
 const addOverlay = document.getElementById( 'add_overlay' );
 const addCancel = document.getElementById( 'add_cancel' );
@@ -12,11 +20,27 @@ const ingredientTab = document.getElementById( 'ing-tab' );
 const recipeTab = document.getElementById( 'rec-tab' );
 const addComponentBtn = document.getElementById( 'add-comp-btn' );
 
+
 let addCompList = document.getElementById( 'add-comp-list' );
 
 let selID;
 
 let componentsList = [];
+
+
+cancelNewIngredientOnRecipe.style.cursor = 'pointer';
+cancelNewIngredientOnRecipe.onclick = () => {
+    newIngredientOverlayOnRecipe.style.display = 'none';
+    //TODO: Reset all fields
+}
+
+newIngredientInComp.onclick = () => {
+    newIngredientOverlayOnRecipe.style.display = 'block';
+    //TODO: Reset all fields
+}
+
+
+validateNewIngredientOnRecipe.style.cursor = 'pointer';
 
 
 
@@ -133,6 +157,83 @@ function initIngredientsOnComp() {
     addCompList.innerHTML = '';
 
     loadIngredientsOnComp().then( () => {
+
+        validateNewIngredientOnRecipe.onclick = () => {
+            if ( document.ingForm.name.value && document.ingForm.price.value && document.ingForm.refer_unity.value && document.ingForm.price_qty.value ) {
+
+                let newArray = ingredients;
+                let newIngredient = {};
+
+                let index = 0;
+
+                while ( true ) {
+                    index++;
+
+                    if ( !newArray.some( ( ingredient ) => ingredient.id === index ) ) {
+                        break;
+                    }
+                }
+                newIngredient.id = index;
+                //Set the first letter to Uppercase
+                newIngredient.name = document.ingForm.name.value.charAt( 0 ).toUpperCase() + document.ingForm.name.value.slice( 1 );
+                newIngredient.price_type = document.ingForm.refer_unity.value;
+                newIngredient.price = document.ingForm.price.value;
+                newIngredient.price_qty = document.ingForm.price_qty.value;
+
+                newArray.push( newIngredient );
+
+                setIngredients( newArray ).then( () => {
+                    newIngredientOverlayOnRecipe.style.display = 'none';
+                    initIngredientsOnComp();
+                } );
+            }
+        }
+
+        document.ingForm.price_type.forEach( ( radio ) => {
+            radio.addEventListener( 'change', () => {
+                if ( radio.checked ) {
+                    $( '#new-ingredient-overlay option' ).remove();
+                    if ( radio.value == 'unity' ) {
+                        let option = document.createElement( 'option' );
+                        option.value = 'unity';
+                        option.innerHTML += 'pièce';
+                        document.ingForm.refer_unity.appendChild( option );
+                    } else if ( radio.value == 'kg' ) {
+                        let option1 = document.createElement( 'option' );
+                        let option2 = document.createElement( 'option' );
+                        let option3 = document.createElement( 'option' );
+
+                        option1.value = 'kg';
+                        option2.value = 'g';
+                        option3.value = 'mg';
+
+                        option1.innerHTML += 'kg';
+                        option2.innerHTML += 'g';
+                        option3.innerHTML += 'mg';
+
+                        document.ingForm.refer_unity.appendChild( option1 );
+                        document.ingForm.refer_unity.appendChild( option2 );
+                        document.ingForm.refer_unity.appendChild( option3 );
+                    } else if ( radio.value == 'L' ) {
+                        let option1 = document.createElement( 'option' );
+                        let option2 = document.createElement( 'option' );
+                        let option3 = document.createElement( 'option' );
+
+                        option1.value = 'L';
+                        option2.value = 'cL';
+                        option3.value = 'mL';
+
+                        option1.innerHTML += 'L';
+                        option2.innerHTML += 'cL';
+                        option3.innerHTML += 'mL';
+
+                        document.ingForm.refer_unity.appendChild( option1 );
+                        document.ingForm.refer_unity.appendChild( option2 );
+                        document.ingForm.refer_unity.appendChild( option3 );
+                    }
+                }
+            } );
+        } );
 
 
         if ( ingredients.length > 0 ) {
