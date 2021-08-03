@@ -130,12 +130,18 @@ storage.has( 'ingredients', function ( err, hasIng ) {
         setIngredients( defaultIngredients ).then( () => {
             loadIngredients().then( () => {
                 testRecipes();
-            } )
-        } );
+            } ).catch( ( err ) => {
+                console.log( 'ERROR' );
+            } );
+        } ).catch( ( err ) => {
+            console.log( 'ERROR' );
+        } );;
     } else {
         loadIngredients().then( () => {
             testRecipes();
-        } );
+        } ).catch( ( err ) => {
+            console.log( 'ERROR' );
+        } );;
     }
 } )
 
@@ -330,11 +336,17 @@ function testRecipes() {
             setRecipes( defaultRecipes ).then( () => {
                 loadRecipes().then( ( data ) => {
                     initRecipes();
+                } ).catch( ( err ) => {
+                    console.log( 'ERROR' );
                 } );
+            } ).catch( ( err ) => {
+                console.log( 'ERROR' );
             } );
         } else {
-            loadRecipes().then( ( data ) => {
+            loadRecipes().then( () => {
                 initRecipes();
+            } ).catch( ( err ) => {
+                console.log( 'ERROR' );
             } );
         }
     } );
@@ -344,6 +356,7 @@ let currentID;
 const recipeList = document.getElementById( 'recipes-list' );
 
 function initRecipes() {
+    console.log( recipes );
     if ( recipes.length > 0 ) {
         let ul1 = document.createElement( 'ul' );
         recipeList.appendChild( ul1 );

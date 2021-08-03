@@ -80,7 +80,7 @@ addCancel.onclick = () => {
 newComponentBtn.style.cursor = 'pointer';
 newComponentBtn.onclick = () => {
     addComponentOverlay.style.display = 'block';
-    initIngredients();
+    initIngredientsOnComp();
 }
 
 cancelAddComponent.style.cursor = 'pointer';
@@ -93,17 +93,17 @@ recipeTab.style.backgroundColor = '#EA9170';
 
 ingredientTab.style.cursor = 'pointer';
 ingredientTab.onclick = () => {
-    initIngredients();
+    initIngredientsOnComp();
 
 
 }
 
 recipeTab.style.cursor = 'pointer';
 recipeTab.onclick = () => {
-    initRecipes();
+    initRecipesOnComp();
 }
 
-function initIngredients() {
+function initIngredientsOnComp() {
     tab = 'ing';
     ingredientTab.style.backgroundColor = '#E65A29';
     recipeTab.style.backgroundColor = '#EA9170';
@@ -184,11 +184,12 @@ function initIngredients() {
 
                 // Create a container for all the item.
                 let container = document.createElement( 'div' );
-                container.id = 'ing' + ingredient.id;
+                container.id = 'ing_' + ingredient.id;
                 container.className += 'list-item';
 
                 container.onclick = () => {
                     // Unselect previous item
+                    console.log( selID );
                     if ( selID ) {
                         document.getElementById( selID ).classList.remove( 'selected-item' );
                     }
@@ -212,7 +213,7 @@ function initIngredients() {
     } );
 }
 
-function initRecipes() {
+function initRecipesOnComp() {
     tab = 'rec';
     recipeTab.style.backgroundColor = '#E65A29';
     ingredientTab.style.backgroundColor = '#EA9170';
@@ -225,14 +226,13 @@ function initRecipes() {
 
 
 
-    let recipes = [];
+    let recipes1 = [];
 
     function loadRecipesOnComp() {
-        console.log( 'Loading recipes...' );
         return new Promise( ( res, rej ) => {
             storage.get( 'recipes', ( err, recArray ) => {
                 if ( err ) rej( err );
-                recipes = recArray;
+                recipes1 = recArray;
                 res();
             } );
         } );
@@ -243,9 +243,9 @@ function initRecipes() {
 
     loadRecipesOnComp().then( () => {
 
-        if ( recipes.length > 0 ) {
+        if ( recipes1.length > 0 ) {
             // Tri par ordre alphabétique
-            recipes.sort( ( a, b ) => {
+            recipes1.sort( ( a, b ) => {
                 if ( a.name > b.name ) {
                     return 1;
                 }
@@ -257,7 +257,7 @@ function initRecipes() {
 
             let previousLetter = '#';
 
-            recipes.forEach( ( recipe, index ) => {
+            recipes1.forEach( ( recipe, index ) => {
                 if ( index == 0 ) {
                     previousLetter = recipe.name.charAt( 0 ).toUpperCase();
                     let letterIndexLi = document.createElement( 'li' );
@@ -292,7 +292,7 @@ function initRecipes() {
 
                 // Create a container for all the item.
                 let container = document.createElement( 'div' );
-                container.id = 'ing' + recipe.id;
+                container.id = 'rec_' + recipe.id;
                 container.className += 'list-item';
 
                 container.onclick = () => {

@@ -236,3 +236,34 @@ li > h3 {
     color: white;
     background-color: #ea9170;
 }
+
+.cross {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.box > h2 {
+    font-size: 40px;
+    color: #662912;
+}
+
+.validate_btn {
+    background-color: #e65a29;
+    border-radius: 4px;
+    text-align: center;
+    width: 50%;
+    max-height: 81px;
+    margin: auto;
+}
+
+.validate_btn > h2 {
+    color: white;
+    font-size: 36px;
+}
+
+.price_container ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
