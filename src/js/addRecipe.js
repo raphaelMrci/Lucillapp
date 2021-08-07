@@ -34,6 +34,7 @@ cancelNewIngredientOnRecipe.onclick = () => {
     //TODO: Reset all fields
 }
 
+newIngredientInComp.style.cursor = 'pointer';
 newIngredientInComp.onclick = () => {
     newIngredientOverlayOnRecipe.style.display = 'block';
     //TODO: Reset all fields
@@ -66,9 +67,9 @@ addComponentBtn.onclick = () => {
 
             // Add selected item to the components List
             loadIngredientsToAdd().then( () => {
-                componentsList.push( ingredients[ compID[ 1 ] ] );
+                componentsList.push( ingredients.find( ( ingredient ) => ingredient.id == compID[ 1 ] ) );
             } );
-        } else if ( compID[ 1 ] == 'rec' ) {
+        } else if ( compID[ 0 ] == 'rec' ) {
             let recipes = [];
 
             function loadRecipesToAdd() {
@@ -83,11 +84,12 @@ addComponentBtn.onclick = () => {
 
             // Add selected item to the components List
             loadRecipesToAdd().then( () => {
-                componentsList.push( recipes[ compID[ 1 ] ] );
+                componentsList.push( recipes.find( ( recipe ) => recipe.id == compID[ 1 ] ) );
             } );
         }
 
         addComponentOverlay.style.display = 'none';
+        loadingComponents();
     }
 }
 
@@ -290,7 +292,6 @@ function initIngredientsOnComp() {
 
                 container.onclick = () => {
                     // Unselect previous item
-                    console.log( selID );
                     if ( selID ) {
                         document.getElementById( selID ).classList.remove( 'selected-item' );
                     }
@@ -327,13 +328,13 @@ function initRecipesOnComp() {
 
 
 
-    let recipes1 = [];
+    let recipes = [];
 
     function loadRecipesOnComp() {
         return new Promise( ( res, rej ) => {
             storage.get( 'recipes', ( err, recArray ) => {
                 if ( err ) rej( err );
-                recipes1 = recArray;
+                recipes = recArray;
                 res();
             } );
         } );
@@ -344,9 +345,9 @@ function initRecipesOnComp() {
 
     loadRecipesOnComp().then( () => {
 
-        if ( recipes1.length > 0 ) {
+        if ( recipes.length > 0 ) {
             // Tri par ordre alphabétique
-            recipes1.sort( ( a, b ) => {
+            recipes.sort( ( a, b ) => {
                 if ( a.name > b.name ) {
                     return 1;
                 }
@@ -358,7 +359,7 @@ function initRecipesOnComp() {
 
             let previousLetter = '#';
 
-            recipes1.forEach( ( recipe, index ) => {
+            recipes.forEach( ( recipe, index ) => {
                 if ( index == 0 ) {
                     previousLetter = recipe.name.charAt( 0 ).toUpperCase();
                     let letterIndexLi = document.createElement( 'li' );
@@ -418,4 +419,10 @@ function initRecipesOnComp() {
             } );
         }
     } );
+}
+
+function loadingComponents() {
+    if ( componentsList.length > 0 ) {
+        console.log( componentsList );
+    }
 }

@@ -77,7 +77,7 @@ storage.has( 'ingredients', function ( error, hasKey ) {
                 "price_qty": 1
             },
             {
-                "id": 9,
+                "id": 16,
                 "name": "Maïzena",
                 "price_type": "kg",
                 "price": 1,
