@@ -125,22 +125,21 @@ storage.has( 'ingredients', function ( err, hasIng ) {
                 "price_qty": 1
             }
         ];
-        console.log( 'Ingredients creation...' );
 
         setIngredients( defaultIngredients ).then( () => {
             loadIngredients().then( () => {
                 testRecipes();
             } ).catch( ( err ) => {
-                console.log( 'ERROR' );
+                console.error( err );
             } );
         } ).catch( ( err ) => {
-            console.log( 'ERROR' );
+            console.error( err );
         } );;
     } else {
         loadIngredients().then( () => {
             testRecipes();
         } ).catch( ( err ) => {
-            console.log( 'ERROR' );
+            console.error( err );
         } );;
     }
 } )
@@ -331,7 +330,6 @@ function testRecipes() {
                 }
             ];
 
-            console.log( 'Recipes creation...' );
 
             setRecipes( defaultRecipes ).then( () => {
                 loadRecipes().then( ( data ) => {
@@ -355,7 +353,6 @@ function testRecipes() {
 const recipeList = document.getElementById( 'recipes-list' );
 
 function initRecipes() {
-    console.log( recipes );
     if ( recipes.length > 0 ) {
         let ul1 = document.createElement( 'ul' );
         recipeList.appendChild( ul1 );
@@ -374,7 +371,6 @@ function initRecipes() {
         let previousLetter = '#';
 
         recipes.forEach( ( recipe, index ) => {
-            console.log( recipe )
             if ( index == 0 ) {
                 previousLetter = recipe.name.charAt( 0 ).toUpperCase();
                 let letterIndexLi = document.createElement( 'li' );
@@ -501,7 +497,7 @@ function calcRecipePrice( recipe ) {
     let price = 0;
     recipe.components.forEach( ( component ) => {
         if ( component.group == 'ingredients' ) {
-            let ingredient = ingredients.find( ( ingredient ) => ingredient.id === component.id );
+            let ingredient = ingredients.find( ( ingredient ) => ingredient.id == component.id );
             if ( component.unity == 'kg' ) {
                 if ( ingredient.unity == 'kg' ) {
                     price += ingredient.price / ingredient.price_qty * component.qty;
@@ -562,7 +558,7 @@ function calcRecipePrice( recipe ) {
                 } else {
                     console.warn( 'components unity are not compatible...' );
                 }
-            } else if ( component.unity == 'piece' && ingredient.unity === 'piece' ) {
+            } else if ( component.unity == 'piece' && ingredient.unity == 'piece' ) {
                 price += ingredient.price / ingredient.price_qty * component.qty;
             } else {
                 console.warn( 'unknown component unity...' );
@@ -608,7 +604,6 @@ function setIngredients( jsonObj ) {
 }
 
 function loadIngredients() {
-    console.log( 'Loading ingredients...' );
     return new Promise( ( res, rej ) => {
         storage.get( 'ingredients', ( err, ingArray ) => {
             if ( err ) rej( err );

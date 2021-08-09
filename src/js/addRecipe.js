@@ -78,7 +78,7 @@ addComponentBtn.onclick = () => {
                 componentsList.push( curIng );
 
                 addComponentOverlay.style.display = 'none';
-                loadingComponents();
+                insertComponent( curIng );
             } );
         } else if ( compID[ 0 ] == 'rec' ) {
             let recipes = [];
@@ -100,7 +100,7 @@ addComponentBtn.onclick = () => {
                 componentsList.push( curRec );
 
                 addComponentOverlay.style.display = 'none';
-                loadingComponents();
+                insertComponent( curRec );
             } );
         }
 
@@ -439,80 +439,106 @@ function initRecipesOnComp() {
 
 const compList = document.getElementById( 'components-list' );
 
-function loadingComponents() {
+function insertComponent( comp ) {
+
+    let li = document.createElement( 'li' );
 
 
-    if ( componentsList.length ) {
+    let div = document.createElement( 'div' );
+    div.classList.add( 'component-container' );
 
-        compList.innerHTML = '';
 
-        componentsList.forEach( ( comp ) => {
-            let li = document.createElement( 'li' );
-            compList.appendChild( li );
+    let title = document.createElement( 'h1' );
+    title.innerHTML = comp.name;
 
-            let div = document.createElement( 'div' );
-            div.classList.add( 'component-container' );
-            li.appendChild( div );
 
-            let title = document.createElement( 'h1' );
-            title.innerHTML = comp.name;
-            div.appendChild( title );
+    let qtyContainer = document.createElement( 'div' );
+    qtyContainer.classList.add( 'comp-qty-container' );
 
-            let qtyContainer = document.createElement( 'div' );
-            qtyContainer.classList.add( 'comp-qty-container' );
-            div.appendChild( qtyContainer );
 
-            let qtyInput = document.createElement( 'input' );
-            qtyInput.type = 'number';
-            qtyInput.id = comp.id + '_qty';
-            qtyContainer.appendChild( qtyInput );
-
-            let unitySelector = document.createElement( 'select' );
-            unitySelector.id = comp.id + '_unity';
-            qtyContainer.appendChild( unitySelector );
-
-            if ( comp.unity == 'kg' || comp.unity == 'g' || comp.unity == 'mg' ) {
-                let opt1 = document.createElement( 'option' );
-                opt1.value = 'kg';
-                opt1.innerHTML = 'kg';
-                unitySelector.appendChild( opt1 );
-
-                let opt2 = document.createElement( 'option' );
-                opt2.value = 'g';
-                opt2.innerHTML = 'g';
-                unitySelector.appendChild( opt2 );
-
-                let opt3 = document.createElement( 'option' );
-                opt3.value = 'mg';
-                opt3.innerHTML = 'mg';
-                unitySelector.appendChild( opt3 );
-            } else if ( comp.unity == 'L' || comp.unity == 'cL' || comp.unity == 'mL' ) {
-                let opt1 = document.createElement( 'option' );
-                opt1.value = 'L';
-                opt1.innerHTML = 'L';
-                unitySelector.appendChild( opt1 );
-
-                let opt2 = document.createElement( 'option' );
-                opt2.value = 'cL';
-                opt2.innerHTML = 'cL';
-                unitySelector.appendChild( opt2 );
-
-                let opt3 = document.createElement( 'option' );
-                opt3.value = 'mL';
-                opt3.innerHTML = 'mL';
-                unitySelector.appendChild( opt3 );
-
-            } else if ( comp.unity == 'piece' ) {
-                let opt1 = document.createElement( 'option' );
-                opt1.value = 'piece';
-                opt1.innerHTML = 'pièce';
-                unitySelector.appendChild( opt1 );
-            }
-        } );
+    let qtyInput = document.createElement( 'input' );
+    qtyInput.type = 'number';
+    qtyInput.id = comp.id + '_qty';
+    let qtyValue = parseInt( document.getElementById( comp.id ).value );
+    if ( qtyValue ) {
+        qtyInput = qtyValue;
     }
+
+
+    let unitySelector = document.createElement( 'select' );
+    unitySelector.id = comp.id + '_unity';
+
+    compList.appendChild( li );
+    li.appendChild( div );
+    div.appendChild( title );
+    div.appendChild( qtyContainer );
+    qtyContainer.appendChild( qtyInput );
+    qtyContainer.appendChild( unitySelector );
+
+
+    if ( comp.unity == 'kg' || comp.unity == 'g' || comp.unity == 'mg' ) {
+        let opt1 = document.createElement( 'option' );
+        opt1.value = 'kg';
+        opt1.innerHTML = 'kg';
+        unitySelector.appendChild( opt1 );
+
+        let opt2 = document.createElement( 'option' );
+        opt2.value = 'g';
+        opt2.innerHTML = 'g';
+        unitySelector.appendChild( opt2 );
+
+        let opt3 = document.createElement( 'option' );
+        opt3.value = 'mg';
+        opt3.innerHTML = 'mg';
+        unitySelector.appendChild( opt3 );
+    } else if ( comp.unity == 'L' || comp.unity == 'cL' || comp.unity == 'mL' ) {
+        let opt1 = document.createElement( 'option' );
+        opt1.value = 'L';
+        opt1.innerHTML = 'L';
+        unitySelector.appendChild( opt1 );
+
+        let opt2 = document.createElement( 'option' );
+        opt2.value = 'cL';
+        opt2.innerHTML = 'cL';
+        unitySelector.appendChild( opt2 );
+
+        let opt3 = document.createElement( 'option' );
+        opt3.value = 'mL';
+        opt3.innerHTML = 'mL';
+        unitySelector.appendChild( opt3 );
+
+    } else if ( comp.unity == 'piece' ) {
+        let opt1 = document.createElement( 'option' );
+        opt1.value = 'piece';
+        opt1.innerHTML = 'pièce';
+        unitySelector.appendChild( opt1 );
+    }
+
 }
 
 function saveRecipe() {
+
+    console.log( 'saving recipe...' );
+    if ( !document.recipeForm.name.value || document.recipeForm.name.value <= 0 ) {
+        console.warn( 'Problem with name field.' );
+        return;
+    }
+
+    if ( !document.recipeForm.unity.value ) {
+        console.warn( 'No unity selected' );
+        return;
+    }
+
+    if ( !parseInt( document.recipeForm.qty.value ) || parseInt( document.recipeForm.qty.value ) <= 0 ) {
+        console.warn( 'No quanty entered...' );
+        return;
+    }
+
+    if ( !componentsList.length ) {
+        console.warn( 'No components.' );
+        return;
+    }
+
     let recipes = [];
 
     function loadRecipesOnComp() {
@@ -546,6 +572,8 @@ function saveRecipe() {
             components: []
         };
 
+        let status = 'OK';
+
         componentsList.forEach( ( comp ) => {
             console.log( comp.id );
             let compID = comp.id.split( '_' );
@@ -563,6 +591,11 @@ function saveRecipe() {
             let unity = document.getElementById( comp.id + '_unity' );
             let qty = document.getElementById( comp.id + '_qty' );
 
+            if ( !parseInt( qty.value ) || parseInt( qty.value ) <= 0 || !unity.value ) {
+                console.warn( 'Component field uncompleted.' );
+                status = 'ERROR';
+            }
+
             newComp.unity = unity.value;
             newComp.qty = parseInt( qty.value );
 
@@ -570,13 +603,19 @@ function saveRecipe() {
             newRec.components.push( newComp );
         } );
 
+        if ( status == 'ERROR' ) {
+            return;
+        }
+
         newRecipeArray.push( newRec );
 
         setRecipes( newRecipeArray ).then( () => {
             resetNewRecipe();
-            addOverlay.style.display = 'none';
+            window.location.href = '../html/recipes.html';
         } )
     } );
+
+
 }
 
 function resetNewRecipe() {
