@@ -55,7 +55,7 @@
                     <li>
                         <p>quantité pour</p>
                     </li>
-                    <li><input type="number" /></li>
+                    <li><input type="number" name="qty" /></li>
                     <li>
                         <select name="unity">
                             <option value="kg">kg</option>
@@ -69,17 +69,31 @@
                     </li>
                 </ul>
 
-                <fieldset>
-                    <legend>Composants</legend>
-                    <ul id="component-container">
-                        <li>
-                            <img
-                                src="../../img/add.png"
-                                id="add-recipe-component"
-                            />
-                        </li>
-                    </ul>
-                </fieldset>
+                <div id="IdontCare">
+                    <fieldset>
+                        <legend>Composants</legend>
+
+                        <ul id="components-list">
+                            <li>
+                                <div class="component-container">
+                                    <h1>Farine</h1>
+                                    <div class="comp-qty-container">
+                                        <input type="number" />
+                                        <select>
+                                            <option>kg</option>
+                                            <option>g</option>
+                                            <option>mg</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <img
+                            src="../../img/add.png"
+                            id="add-recipe-component"
+                        />
+                    </fieldset>
+                </div>
             </form>
 
             <div class="topbar">

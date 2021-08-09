@@ -7,6 +7,7 @@ const newIngredientOverlayOnRecipe = document.getElementById( 'new-ingredient-ov
 const cancelNewIngredientOnRecipe = document.getElementById( 'new-ingredient-cancel' );
 const validateNewIngredientOnRecipe = document.getElementById( 'new-ingredient-validate' );
 
+const validateNewRecipeBtn = document.getElementById( 'add_validate_btn' );
 
 const addOverlay = document.getElementById( 'add_overlay' );
 const addCancel = document.getElementById( 'add_cancel' );
@@ -27,17 +28,22 @@ let selID;
 
 let componentsList = [];
 
+validateNewRecipeBtn.style.cursor = 'pointer';
+validateNewRecipeBtn.onclick = () => {
+    saveRecipe();
+}
+
 
 cancelNewIngredientOnRecipe.style.cursor = 'pointer';
 cancelNewIngredientOnRecipe.onclick = () => {
     newIngredientOverlayOnRecipe.style.display = 'none';
-    //TODO: Reset all fields
+    resetNewRecipe();
 }
 
 newIngredientInComp.style.cursor = 'pointer';
 newIngredientInComp.onclick = () => {
     newIngredientOverlayOnRecipe.style.display = 'block';
-    //TODO: Reset all fields
+    resetNewRecipe();
 }
 
 
@@ -68,6 +74,9 @@ addComponentBtn.onclick = () => {
             // Add selected item to the components List
             loadIngredientsToAdd().then( () => {
                 componentsList.push( ingredients.find( ( ingredient ) => ingredient.id == compID[ 1 ] ) );
+
+                addComponentOverlay.style.display = 'none';
+                loadingComponents();
             } );
         } else if ( compID[ 0 ] == 'rec' ) {
             let recipes = [];
@@ -85,11 +94,13 @@ addComponentBtn.onclick = () => {
             // Add selected item to the components List
             loadRecipesToAdd().then( () => {
                 componentsList.push( recipes.find( ( recipe ) => recipe.id == compID[ 1 ] ) );
+
+                addComponentOverlay.style.display = 'none';
+                loadingComponents();
             } );
         }
 
-        addComponentOverlay.style.display = 'none';
-        loadingComponents();
+
     }
 }
 
@@ -421,8 +432,150 @@ function initRecipesOnComp() {
     } );
 }
 
+const compList = document.getElementById( 'components-list' );
+
 function loadingComponents() {
-    if ( componentsList.length > 0 ) {
-        console.log( componentsList );
+
+
+    if ( componentsList.length ) {
+
+
+        compList.innerHTML = '';
+
+        componentsList.forEach( ( comp ) => {
+            let li = document.createElement( 'li' );
+            compList.appendChild( li );
+
+            let div = document.createElement( 'div' );
+            div.classList.add( 'component-container' );
+            li.appendChild( div );
+
+            let title = document.createElement( 'h1' );
+            title.innerHTML = comp.name;
+            div.appendChild( title );
+
+            let qtyContainer = document.createElement( 'div' );
+            qtyContainer.classList.add( 'comp-qty-container' );
+            div.appendChild( qtyContainer );
+
+            let qtyInput = document.createElement( 'input' );
+            qtyInput.type = 'number';
+            qtyInput.id = comp.id + '_qty';
+            qtyContainer.appendChild( qtyInput );
+
+            let unitySelector = document.createElement( 'select' );
+            unitySelector.id = comp.id + '_unity';
+            qtyContainer.appendChild( unitySelector );
+
+            if ( comp.price_type == 'kg' || comp.price_type == 'g' || comp.price_type == 'mg' ) {
+                let opt1 = document.createElement( 'option' );
+                opt1.value = 'kg';
+                opt1.innerHTML = 'kg';
+                unitySelector.appendChild( opt1 );
+
+                let opt2 = document.createElement( 'option' );
+                opt2.value = 'g';
+                opt2.innerHTML = 'g';
+                unitySelector.appendChild( opt2 );
+
+                let opt3 = document.createElement( 'option' );
+                opt3.value = 'mg';
+                opt3.innerHTML = 'mg';
+                unitySelector.appendChild( opt3 );
+            } else if ( comp.price_type == 'L' || comp.price_type == 'cL' || comp.price_type == 'mL' ) {
+                let opt1 = document.createElement( 'option' );
+                opt1.value = 'L';
+                opt1.innerHTML = 'L';
+                unitySelector.appendChild( opt1 );
+
+                let opt2 = document.createElement( 'option' );
+                opt2.value = 'cL';
+                opt2.innerHTML = 'cL';
+                unitySelector.appendChild( opt2 );
+
+                let opt3 = document.createElement( 'option' );
+                opt3.value = 'mL';
+                opt3.innerHTML = 'mL';
+                unitySelector.appendChild( opt3 );
+
+            } else if ( comp.price_type == 'unity' ) {
+                let opt1 = document.createElement( 'option' );
+                opt1.value = 'unity';
+                opt1.innerHTML = 'pièce';
+                unitySelector.appendChild( opt1 );
+            }
+        } );
     }
+}
+
+function saveRecipe() {
+    let recipes = [];
+
+    function loadRecipesOnComp() {
+        return new Promise( ( res, rej ) => {
+            storage.get( 'recipes', ( err, recArray ) => {
+                if ( err ) rej( err );
+                recipes = recArray;
+                res();
+            } );
+        } );
+    }
+
+    loadRecipesOnComp().then( () => {
+        let index = 0;
+
+        let newRecipeArray = recipes;
+
+        while ( true ) {
+            index++;
+
+            if ( !newRecipeArray.some( ( ingredient ) => ingredient.id === index ) ) {
+                break;
+            }
+        }
+
+        let newRec = {
+            name: document.recipeForm.name.value,
+            id: index,
+            unity: document.recipeForm.unity.value,
+            qty: document.recipeForm.qty.value,
+            components: []
+        };
+
+        componentsList.forEach( ( comp ) => {
+            let compID = comp.id.split( '_' );
+
+            let newComp = {
+                id: compID[ 1 ]
+            }
+
+            if ( compID[ 0 ] == 'ing' ) {
+                newComp.group = 'ingredients';
+            } else if ( compID[ 0 ] == 'rec' ) {
+                newComp.group = 'recipes';
+            }
+
+            let unity = document.getElementById( comp.id + '_unity' );
+            let qty = document.getElementById( comp.id + '_qty' );
+
+            newComp.unity = unity.value;
+            newComp.qty = qty.value;
+
+
+            newRec.components.push( newComp );
+        } );
+
+        newRecipeArray.push( newRec );
+
+        setRecipes( newRecipeArray ).then( () => {
+            resetNewRecipe();
+            addOverlay.style.display = 'none';
+        } )
+    } );
+}
+
+function resetNewRecipe() {
+    compList.innerHTML = '';
+    document.recipeForm.qty.value = '';
+    document.recipeForm.name.value = '';
 }
