@@ -293,8 +293,8 @@ li > h3 {
 
 #IdontCare {
     position: absolute;
-    top: 10%;
+    top: 20%;
     width: 100%;
-    height: 90%;
+    height: 80%;
     overflow-y: auto;
 }

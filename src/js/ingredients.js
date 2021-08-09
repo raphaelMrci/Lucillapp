@@ -16,112 +16,112 @@ storage.has( 'ingredients', function ( error, hasKey ) {
         let defaultIngredients = [ {
                 "id": 1,
                 "name": "Beurre",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 7.5,
                 "price_qty": 1
             },
             {
                 "id": 2,
                 "name": "Lait",
-                "price_type": "L",
+                "unity": "L",
                 "price": 0.8,
                 "price_qty": 1
             },
             {
                 "id": 3,
                 "name": "Eau",
-                "price_type": "L",
+                "unity": "L",
                 "price": 0.1,
                 "price_qty": 1
             },
             {
                 "id": 4,
                 "name": "Sel",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 5,
                 "name": "Farine",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 0.8,
                 "price_qty": 1
             },
             {
                 "id": 6,
                 "name": "Oeuf",
-                "price_type": "unity",
+                "unity": "piece",
                 "price": 0.5,
                 "price_qty": 1
             },
             {
                 "id": 7,
                 "name": "Feuille de gélatine",
-                "price_type": "unity",
+                "unity": "piece",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 8,
                 "name": "Jaune d'oeuf",
-                "price_type": "unity",
+                "unity": "piece",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 9,
                 "name": "Sucre semoule",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 16,
                 "name": "Maïzena",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 10,
                 "name": "Sucre roux",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 11,
                 "name": "Beurre pommade",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 12,
                 "name": "Noisette",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 13,
                 "name": "Amandes",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 14,
                 "name": "Sucre blanc",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 15,
                 "name": "Fleur de sel",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             }
@@ -148,13 +148,13 @@ const editOverlay = document.getElementById( 'edit_overlay' );
 const editCross = document.getElementById( 'edit_cross' );
 const deleteBtn = document.getElementById( 'delete' );
 const editValidateBtn = document.getElementById( 'edit_validate_btn' );
-const editReferUnitySelect = document.editForm.refer_unity;
+const editReferpieceSelect = document.editForm.refer_unity;
 
 const addOverlay = document.getElementById( 'add_overlay' );
 const addCross = document.getElementById( 'add_cross' );
 const addValidateBtn = document.getElementById( 'add_validate_btn' );
 const addBtn = document.getElementById( 'add_ingredient_btn' );
-const addReferUnitySelect = document.addForm.refer_unity;
+const addReferpieceSelect = document.addForm.refer_unity;
 
 addValidateBtn.style.cursor = 'pointer';
 addValidateBtn.onclick = () => {
@@ -174,7 +174,7 @@ addValidateBtn.onclick = () => {
         newIngredient.id = index;
         //Set the first letter to Uppercase
         newIngredient.name = document.addForm.name.value.charAt( 0 ).toUpperCase() + document.addForm.name.value.slice( 1 );
-        newIngredient.price_type = document.addForm.refer_unity.value;
+        newIngredient.unity = document.addForm.refer_unity.value;
         newIngredient.price = document.addForm.price.value;
         newIngredient.price_qty = document.addForm.price_qty.value;
 
@@ -278,13 +278,13 @@ function initIngredients() {
 
             let priceString;
 
-            if ( ingredient.price_type == 'kg' || ingredient.price_type == 'L' || ingredient.price_type == 'unity' ) {
+            if ( ingredient.unity == 'kg' || ingredient.unity == 'L' || ingredient.unity == 'piece' ) {
                 priceString = ingredient.price / ingredient.price_qty;
-            } else if ( ingredient.price_type == 'g' || ingredient.price_type == 'mL' ) {
+            } else if ( ingredient.unity == 'g' || ingredient.unity == 'mL' ) {
                 priceString = ingredient.price / ingredient.price_qty * 1000;
-            } else if ( ingredient.price_type == 'cL' ) {
+            } else if ( ingredient.unity == 'cL' ) {
                 priceString = ingredient.price / ingredient.price_qty * 100;
-            } else if ( ingredient.price_type == 'mg' ) {
+            } else if ( ingredient.unity == 'mg' ) {
                 priceString = ingredient.price / ingredient.price_qty * 1000000;
             }
 
@@ -292,14 +292,14 @@ function initIngredients() {
             priceString = Math.round( ( priceString + Number.EPSILON ) * 10 ) / 10;
             priceString += '€/';
 
-            if ( ingredient.price_type == 'kg' || ingredient.price_type == 'g' || ingredient.price_type == 'mg' ) {
+            if ( ingredient.unity == 'kg' || ingredient.unity == 'g' || ingredient.unity == 'mg' ) {
                 priceString += 'kg';
-            } else if ( ingredient.price_type == 'L' || ingredient.price_type == 'cL' || ingredient.price_type == 'mL' ) {
+            } else if ( ingredient.unity == 'L' || ingredient.unity == 'cL' || ingredient.unity == 'mL' ) {
                 priceString += 'L';
-            } else if ( ingredient.price_type == 'unity' ) {
+            } else if ( ingredient.unity == 'piece' ) {
                 priceString += 'pièce';
             } else {
-                console.error( "ERROR: ingredient " + ingredient.id + " : unexpected price_type\t" + ingredient.price_type );
+                console.error( "ERROR: ingredient " + ingredient.id + " : unexpected unity\t" + ingredient.unity );
             }
 
             let price = document.createElement( 'h3' );
@@ -326,7 +326,7 @@ function initIngredients() {
 // Validate modified ingredient
 editValidateBtn.style.cursor = 'pointer';
 editValidateBtn.onclick = () => {
-    if ( document.editForm.name.value && currentID && document.editForm.price.value && document.editForm.refer_unity.value && document.editForm.price_qty.value ) {
+    if ( document.editForm.name.value && currentID && document.editForm.price.value && document.editForm.refer_piece.value && document.editForm.price_qty.value ) {
         let newArray = ingredients;
         let currentIngredientIndex = ingredients.findIndex( ( ingredient ) => ingredient.id === currentID );
         let edittedIngredient = {};
@@ -335,7 +335,7 @@ editValidateBtn.onclick = () => {
         edittedIngredient.id = currentID;
         edittedIngredient.price = document.editForm.price.value;
         edittedIngredient.price_qty = document.editForm.price_qty.value;
-        edittedIngredient.price_type = document.editForm.refer_unity.value;
+        edittedIngredient.unity = document.editForm.refer_piece.value;
 
         newArray.splice( currentIngredientIndex, 1 );
 
@@ -351,15 +351,15 @@ editValidateBtn.onclick = () => {
 }
 
 // When radio are changed, selector content will be refreshed
-document.addForm.price_type.forEach( ( radio ) => {
+document.addForm.unity.forEach( ( radio ) => {
     radio.addEventListener( 'change', () => {
         if ( radio.checked ) {
             $( 'option' ).remove();
-            if ( radio.value == 'unity' ) {
+            if ( radio.value == 'piece' ) {
                 let option = document.createElement( 'option' );
-                option.value = 'unity';
+                option.value = 'piece';
                 option.innerHTML += 'pièce';
-                addReferUnitySelect.appendChild( option );
+                addReferpieceSelect.appendChild( option );
             } else if ( radio.value == 'kg' ) {
                 let option1 = document.createElement( 'option' );
                 let option2 = document.createElement( 'option' );
@@ -373,9 +373,9 @@ document.addForm.price_type.forEach( ( radio ) => {
                 option2.innerHTML += 'g';
                 option3.innerHTML += 'mg';
 
-                addReferUnitySelect.appendChild( option1 );
-                addReferUnitySelect.appendChild( option2 );
-                addReferUnitySelect.appendChild( option3 );
+                addReferpieceSelect.appendChild( option1 );
+                addReferpieceSelect.appendChild( option2 );
+                addReferpieceSelect.appendChild( option3 );
             } else if ( radio.value == 'L' ) {
                 let option1 = document.createElement( 'option' );
                 let option2 = document.createElement( 'option' );
@@ -389,24 +389,24 @@ document.addForm.price_type.forEach( ( radio ) => {
                 option2.innerHTML += 'cL';
                 option3.innerHTML += 'mL';
 
-                addReferUnitySelect.appendChild( option1 );
-                addReferUnitySelect.appendChild( option2 );
-                addReferUnitySelect.appendChild( option3 );
+                addReferpieceSelect.appendChild( option1 );
+                addReferpieceSelect.appendChild( option2 );
+                addReferpieceSelect.appendChild( option3 );
             }
         }
     } );
 } );
 
 // When radio are changed, selector content will be refreshed
-document.editForm.price_type.forEach( ( radio ) => {
+document.editForm.unity.forEach( ( radio ) => {
     radio.addEventListener( 'change', () => {
         if ( radio.checked ) {
             $( 'option' ).remove();
-            if ( radio.value == 'unity' ) {
+            if ( radio.value == 'piece' ) {
                 let option = document.createElement( 'option' );
-                option.value = 'unity';
+                option.value = 'piece';
                 option.innerHTML += 'pièce';
-                editReferUnitySelect.appendChild( option );
+                editReferpieceSelect.appendChild( option );
             } else if ( radio.value == 'kg' ) {
                 let option1 = document.createElement( 'option' );
                 let option2 = document.createElement( 'option' );
@@ -420,9 +420,9 @@ document.editForm.price_type.forEach( ( radio ) => {
                 option2.innerHTML += 'g';
                 option3.innerHTML += 'mg';
 
-                editReferUnitySelect.appendChild( option1 );
-                editReferUnitySelect.appendChild( option2 );
-                editReferUnitySelect.appendChild( option3 );
+                editReferpieceSelect.appendChild( option1 );
+                editReferpieceSelect.appendChild( option2 );
+                editReferpieceSelect.appendChild( option3 );
             } else if ( radio.value == 'L' ) {
                 let option1 = document.createElement( 'option' );
                 let option2 = document.createElement( 'option' );
@@ -436,9 +436,9 @@ document.editForm.price_type.forEach( ( radio ) => {
                 option2.innerHTML += 'cL';
                 option3.innerHTML += 'mL';
 
-                editReferUnitySelect.appendChild( option1 );
-                editReferUnitySelect.appendChild( option2 );
-                editReferUnitySelect.appendChild( option3 );
+                editReferpieceSelect.appendChild( option1 );
+                editReferpieceSelect.appendChild( option2 );
+                editReferpieceSelect.appendChild( option3 );
             }
         }
     } );
@@ -453,14 +453,14 @@ function openEditOverlay( ingredient ) {
 
     $( 'option' ).remove();
 
-    if ( ingredient.price_type == 'unity' ) {
-        document.editForm.price_type[ 0 ].checked = true;
+    if ( ingredient.unity == 'piece' ) {
+        document.editForm.unity[ 0 ].checked = true;
         let option = document.createElement( 'option' );
-        option.value = 'unity';
+        option.value = 'piece';
         option.innerHTML += 'pièce';
-        editReferUnitySelect.appendChild( option );
-    } else if ( ingredient.price_type == 'kg' || ingredient.price_type == 'g' || ingredient.price_type == 'mg' ) {
-        document.editForm.price_type[ 1 ].checked = true;
+        editReferpieceSelect.appendChild( option );
+    } else if ( ingredient.unity == 'kg' || ingredient.unity == 'g' || ingredient.unity == 'mg' ) {
+        document.editForm.unity[ 1 ].checked = true;
         let option1 = document.createElement( 'option' );
         let option2 = document.createElement( 'option' );
         let option3 = document.createElement( 'option' );
@@ -473,11 +473,11 @@ function openEditOverlay( ingredient ) {
         option2.innerHTML += 'g';
         option3.innerHTML += 'mg';
 
-        editReferUnitySelect.appendChild( option1 );
-        editReferUnitySelect.appendChild( option2 );
-        editReferUnitySelect.appendChild( option3 );
-    } else if ( ingredient.price_type == 'L' || ingredient.price_type == 'cL' || ingredient.price_type == 'mL' ) {
-        document.editForm.price_type[ 2 ].checked = true;
+        editReferpieceSelect.appendChild( option1 );
+        editReferpieceSelect.appendChild( option2 );
+        editReferpieceSelect.appendChild( option3 );
+    } else if ( ingredient.unity == 'L' || ingredient.unity == 'cL' || ingredient.unity == 'mL' ) {
+        document.editForm.unity[ 2 ].checked = true;
         let option1 = document.createElement( 'option' );
         let option2 = document.createElement( 'option' );
         let option3 = document.createElement( 'option' );
@@ -490,14 +490,14 @@ function openEditOverlay( ingredient ) {
         option2.innerHTML += 'cL';
         option3.innerHTML += 'mL';
 
-        editReferUnitySelect.appendChild( option1 );
-        editReferUnitySelect.appendChild( option2 );
-        editReferUnitySelect.appendChild( option3 );
+        editReferpieceSelect.appendChild( option1 );
+        editReferpieceSelect.appendChild( option2 );
+        editReferpieceSelect.appendChild( option3 );
     } else {
-        console.warn( "Ingredient don't have valid unity" );
+        console.warn( "Ingredient don't have valid piece" );
     }
 
-    document.editForm.refer_unity.value = ingredient.price_type;
+    document.editForm.refer_unity.value = ingredient.unity;
 }
 
 deleteBtn.style.cursor = 'pointer';

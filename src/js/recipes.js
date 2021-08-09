@@ -15,112 +15,112 @@ storage.has( 'ingredients', function ( err, hasIng ) {
         let defaultIngredients = [ {
                 "id": 1,
                 "name": "Beurre",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 7.5,
                 "price_qty": 1
             },
             {
                 "id": 2,
                 "name": "Lait",
-                "price_type": "L",
+                "unity": "L",
                 "price": 0.8,
                 "price_qty": 1
             },
             {
                 "id": 3,
                 "name": "Eau",
-                "price_type": "L",
+                "unity": "L",
                 "price": 0.1,
                 "price_qty": 1
             },
             {
                 "id": 4,
                 "name": "Sel",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 5,
                 "name": "Farine",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 0.8,
                 "price_qty": 1
             },
             {
                 "id": 6,
                 "name": "Oeuf",
-                "price_type": "unity",
+                "unity": "piece",
                 "price": 0.5,
                 "price_qty": 1
             },
             {
                 "id": 7,
                 "name": "Feuille de gélatine",
-                "price_type": "unity",
+                "unity": "piece",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 8,
                 "name": "Jaune d'oeuf",
-                "price_type": "unity",
+                "unity": "piece",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 9,
                 "name": "Sucre semoule",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 16,
                 "name": "Maïzena",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 10,
                 "name": "Sucre roux",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 11,
                 "name": "Beurre pommade",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 12,
                 "name": "Noisette",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 13,
                 "name": "Amandes",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 14,
                 "name": "Sucre blanc",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             },
             {
                 "id": 15,
                 "name": "Fleur de sel",
-                "price_type": "kg",
+                "unity": "kg",
                 "price": 1,
                 "price_qty": 1
             }
@@ -337,22 +337,21 @@ function testRecipes() {
                 loadRecipes().then( ( data ) => {
                     initRecipes();
                 } ).catch( ( err ) => {
-                    console.log( 'ERROR' );
+                    console.error( err );
                 } );
             } ).catch( ( err ) => {
-                console.log( 'ERROR' );
+                console.error( err );
             } );
         } else {
             loadRecipes().then( () => {
                 initRecipes();
             } ).catch( ( err ) => {
-                console.log( 'ERROR' );
+                console.error( err );
             } );
         }
     } );
 }
 
-let currentID;
 const recipeList = document.getElementById( 'recipes-list' );
 
 function initRecipes() {
@@ -375,6 +374,7 @@ function initRecipes() {
         let previousLetter = '#';
 
         recipes.forEach( ( recipe, index ) => {
+            console.log( recipe )
             if ( index == 0 ) {
                 previousLetter = recipe.name.charAt( 0 ).toUpperCase();
                 let letterIndexLi = document.createElement( 'li' );
@@ -503,72 +503,72 @@ function calcRecipePrice( recipe ) {
         if ( component.group == 'ingredients' ) {
             let ingredient = ingredients.find( ( ingredient ) => ingredient.id === component.id );
             if ( component.unity == 'kg' ) {
-                if ( ingredient.price_type == 'kg' ) {
+                if ( ingredient.unity == 'kg' ) {
                     price += ingredient.price / ingredient.price_qty * component.qty;
-                } else if ( ingredient.price_type == 'g' ) {
+                } else if ( ingredient.unity == 'g' ) {
                     price += ingredient.price / ingredient.price_qty * 1000 * component.qty;
-                } else if ( ingredient.price_type == 'mg' ) {
+                } else if ( ingredient.unity == 'mg' ) {
                     price += ingredient.price / ingredient.price_qty * 1000000 * component.qty;
                 } else {
                     console.warn( 'components unity are not compatible...' );
                 }
             } else if ( component.unity == 'g' ) {
-                if ( ingredient.price_type == 'kg' ) {
+                if ( ingredient.unity == 'kg' ) {
                     price += ingredient.price / ingredient.price_qty / 1000 * component.qty;
-                } else if ( ingredient.price_type == 'g' ) {
+                } else if ( ingredient.unity == 'g' ) {
                     price += ingredient.price / ingredient.price_qty * component.qty;
-                } else if ( ingredient.price_type == 'mg' ) {
+                } else if ( ingredient.unity == 'mg' ) {
                     price += ingredient.price / ingredient.price_qty * 1000 * component.qty
                 } else {
                     console.warn( 'components unity are not compatible...' );
                 }
             } else if ( component.unity == 'mg' ) {
-                if ( ingredient.price_type == 'kg' ) {
+                if ( ingredient.unity == 'kg' ) {
                     price += ingredient.price / ingredient.price_qty / 1000000 * component.qty;
-                } else if ( ingredient.price_type == 'g' ) {
+                } else if ( ingredient.unity == 'g' ) {
                     price += ingredient.price / ingredient.price_qty / 1000 * component.qty;
-                } else if ( ingredient.price_type == 'mg' ) {
+                } else if ( ingredient.unity == 'mg' ) {
                     price += ingredient.price / ingredient.price_qty * component.qty
                 } else {
                     console.warn( 'components unity are not compatible...' );
                 }
             } else if ( component.unity == 'L' ) {
-                if ( ingredient.price_type == 'L' ) {
+                if ( ingredient.unity == 'L' ) {
                     price += ingredient.price / ingredient.price_qty * component.qty;
-                } else if ( ingredient.price_type == 'cL' ) {
+                } else if ( ingredient.unity == 'cL' ) {
                     price += ingredient.price / ingredient.price_qty * 100 * component.qty;
-                } else if ( ingredient.price_type == 'mL' ) {
+                } else if ( ingredient.unity == 'mL' ) {
                     price += ingredient.price / ingredient.price_qty * 1000 * component.qty;
                 } else {
                     console.warn( 'components unity are not compatible...' );
                 }
             } else if ( component.unity == 'cL' ) {
-                if ( ingredient.price_type == 'L' ) {
+                if ( ingredient.unity == 'L' ) {
                     price += ingredient.price / ingredient.price_qty / 100 * component.qty;
-                } else if ( ingredient.price_type == 'cL' ) {
+                } else if ( ingredient.unity == 'cL' ) {
                     price += ingredient.price / ingredient.price_qty * component.qty;
-                } else if ( ingredient.price_type == 'mL' ) {
+                } else if ( ingredient.unity == 'mL' ) {
                     price += ingredient.price / ingredient.price_qty * 10 * component.qty;
                 } else {
                     console.warn( 'components unity are not compatible...' );
                 }
             } else if ( component.unity == 'mL' ) {
-                if ( ingredient.price_type == 'L' ) {
+                if ( ingredient.unity == 'L' ) {
                     price += ingredient.price / ingredient.price_qty / 1000 * component.qty;
-                } else if ( ingredient.price_type == 'cL' ) {
+                } else if ( ingredient.unity == 'cL' ) {
                     price += ingredient.price / ingredient.price_qty / 10 * component.qty;
-                } else if ( ingredient.price_type == 'mL' ) {
+                } else if ( ingredient.unity == 'mL' ) {
                     price += ingredient.price / ingredient.price_qty * component.qty;
                 } else {
                     console.warn( 'components unity are not compatible...' );
                 }
-            } else if ( component.unity == 'piece' && ingredient.price_type == 'unity' ) {
+            } else if ( component.unity == 'piece' && ingredient.unity === 'piece' ) {
                 price += ingredient.price / ingredient.price_qty * component.qty;
             } else {
                 console.warn( 'unknown component unity...' );
             }
         } else if ( component.group == 'recipes' ) {
-            nRecipe = recipes.find( ( nRecipe ) => nRecipe.id === component.id );
+            nRecipe = recipes.find( ( nRecipe ) => nRecipe.id == component.id );
             price += calcRecipePrice( nRecipe );
         } else {
             console.warn( 'unexpected component group...' );

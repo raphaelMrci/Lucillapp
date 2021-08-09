@@ -43,7 +43,7 @@ cancelNewIngredientOnRecipe.onclick = () => {
 newIngredientInComp.style.cursor = 'pointer';
 newIngredientInComp.onclick = () => {
     newIngredientOverlayOnRecipe.style.display = 'block';
-    resetNewRecipe();
+
 }
 
 
@@ -73,7 +73,9 @@ addComponentBtn.onclick = () => {
 
             // Add selected item to the components List
             loadIngredientsToAdd().then( () => {
-                componentsList.push( ingredients.find( ( ingredient ) => ingredient.id == compID[ 1 ] ) );
+                let curIng = ingredients.find( ( ingredient ) => ingredient.id == compID[ 1 ] );
+                curIng.id = 'ing_' + curIng.id;
+                componentsList.push( curIng );
 
                 addComponentOverlay.style.display = 'none';
                 loadingComponents();
@@ -93,7 +95,9 @@ addComponentBtn.onclick = () => {
 
             // Add selected item to the components List
             loadRecipesToAdd().then( () => {
-                componentsList.push( recipes.find( ( recipe ) => recipe.id == compID[ 1 ] ) );
+                let curRec = recipes.find( ( recipe ) => recipe.id == compID[ 1 ] );
+                curRec.id = 'rec_' + curRec.id;
+                componentsList.push( curRec );
 
                 addComponentOverlay.style.display = 'none';
                 loadingComponents();
@@ -112,6 +116,7 @@ addBtn.onclick = () => {
 addCancel.style.cursor = 'pointer';
 addCancel.onclick = () => {
     addOverlay.style.display = 'none';
+    resetNewRecipe();
 }
 
 newComponentBtn.style.cursor = 'pointer';
@@ -189,7 +194,7 @@ function initIngredientsOnComp() {
                 newIngredient.id = index;
                 //Set the first letter to Uppercase
                 newIngredient.name = document.ingForm.name.value.charAt( 0 ).toUpperCase() + document.ingForm.name.value.slice( 1 );
-                newIngredient.price_type = document.ingForm.refer_unity.value;
+                newIngredient.unity = document.ingForm.refer_unity.value;
                 newIngredient.price = document.ingForm.price.value;
                 newIngredient.price_qty = document.ingForm.price_qty.value;
 
@@ -202,7 +207,7 @@ function initIngredientsOnComp() {
             }
         }
 
-        document.ingForm.price_type.forEach( ( radio ) => {
+        document.ingForm.unity.forEach( ( radio ) => {
             radio.addEventListener( 'change', () => {
                 if ( radio.checked ) {
                     $( '#new-ingredient-overlay option' ).remove();
@@ -439,7 +444,6 @@ function loadingComponents() {
 
     if ( componentsList.length ) {
 
-
         compList.innerHTML = '';
 
         componentsList.forEach( ( comp ) => {
@@ -467,7 +471,7 @@ function loadingComponents() {
             unitySelector.id = comp.id + '_unity';
             qtyContainer.appendChild( unitySelector );
 
-            if ( comp.price_type == 'kg' || comp.price_type == 'g' || comp.price_type == 'mg' ) {
+            if ( comp.unity == 'kg' || comp.unity == 'g' || comp.unity == 'mg' ) {
                 let opt1 = document.createElement( 'option' );
                 opt1.value = 'kg';
                 opt1.innerHTML = 'kg';
@@ -482,7 +486,7 @@ function loadingComponents() {
                 opt3.value = 'mg';
                 opt3.innerHTML = 'mg';
                 unitySelector.appendChild( opt3 );
-            } else if ( comp.price_type == 'L' || comp.price_type == 'cL' || comp.price_type == 'mL' ) {
+            } else if ( comp.unity == 'L' || comp.unity == 'cL' || comp.unity == 'mL' ) {
                 let opt1 = document.createElement( 'option' );
                 opt1.value = 'L';
                 opt1.innerHTML = 'L';
@@ -498,9 +502,9 @@ function loadingComponents() {
                 opt3.innerHTML = 'mL';
                 unitySelector.appendChild( opt3 );
 
-            } else if ( comp.price_type == 'unity' ) {
+            } else if ( comp.unity == 'piece' ) {
                 let opt1 = document.createElement( 'option' );
-                opt1.value = 'unity';
+                opt1.value = 'piece';
                 opt1.innerHTML = 'pièce';
                 unitySelector.appendChild( opt1 );
             }
@@ -538,15 +542,16 @@ function saveRecipe() {
             name: document.recipeForm.name.value,
             id: index,
             unity: document.recipeForm.unity.value,
-            qty: document.recipeForm.qty.value,
+            qty: parseInt( document.recipeForm.qty.value ),
             components: []
         };
 
         componentsList.forEach( ( comp ) => {
+            console.log( comp.id );
             let compID = comp.id.split( '_' );
 
             let newComp = {
-                id: compID[ 1 ]
+                id: parseInt( compID[ 1 ] )
             }
 
             if ( compID[ 0 ] == 'ing' ) {
@@ -559,7 +564,7 @@ function saveRecipe() {
             let qty = document.getElementById( comp.id + '_qty' );
 
             newComp.unity = unity.value;
-            newComp.qty = qty.value;
+            newComp.qty = parseInt( qty.value );
 
 
             newRec.components.push( newComp );
@@ -576,6 +581,7 @@ function saveRecipe() {
 
 function resetNewRecipe() {
     compList.innerHTML = '';
+    componentsList = [];
     document.recipeForm.qty.value = '';
     document.recipeForm.name.value = '';
 }
