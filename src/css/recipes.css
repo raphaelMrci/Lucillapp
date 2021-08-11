@@ -118,7 +118,7 @@ li > h3 {
     align-items: center;
 }
 
-#add-form {
+.form {
     position: absolute;
     top: 101px;
     left: 10%;
@@ -153,6 +153,7 @@ li > h3 {
     position: absolute;
     left: 2%;
     margin-top: 1em;
+    cursor: pointer;
 }
 
 .box > h3 {
@@ -161,6 +162,7 @@ li > h3 {
     right: 2%;
     margin-top: 1em;
     color: #e65a29;
+    cursor: pointer;
 }
 
 .tab {
@@ -171,9 +173,10 @@ li > h3 {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     margin-top: 2em;
+    cursor: pointer;
 }
 
-#tab-selector {
+.tab-selector {
     width: 300px;
     height: fit-content;
     margin: auto;
@@ -193,13 +196,13 @@ li > h3 {
     padding-right: 15px;
 }
 
-#add-comp-list {
+.comp-list {
     width: 100%;
     margin: 0;
     padding: 0;
 }
 
-#list-container {
+.list-container {
     text-align: left;
     position: absolute;
     width: 100%;
@@ -291,10 +294,54 @@ li > h3 {
     flex: 1;
 }
 
-#IdontCare {
+.IdontCare {
     position: absolute;
     top: 20%;
     width: 100%;
     height: 80%;
     overflow-y: auto;
+}
+
+#edit-overlay {
+    background-color: white;
+    text-align: center;
+}
+
+#edit-add-comp-btn {
+    position: absolute;
+    bottom: 3%;
+    right: 5%;
+    background-color: #ea9170;
+    color: white;
+    padding-bottom: 10px;
+    padding-top: 7px;
+    font-size: 1.6em;
+    border-radius: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#edit-add-component-overlay.list-item > h2 {
+    position: relative;
+    left: 2%;
+    margin-block: 0;
+}
+
+#edit-add-component-overlay .list-index h2 {
+    margin-block: 0;
+}
+
+#edit-add-component-overlay .list-item h2 {
+    margin-block: 0;
+    margin-left: 10px;
+}
+
+#edit-add-component-overlay .list-item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#edit-add-component-overlay .selected-item {
+    color: white;
+    background-color: #ea9170;
 }

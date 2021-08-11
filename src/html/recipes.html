@@ -47,7 +47,7 @@
         </nav>
 
         <div id="add_overlay" class="overlay">
-            <form name="recipeForm" id="add-form">
+            <form name="recipeForm" id="add-form" class="form">
                 <label for="add_name_recipe">Nom</label>
                 <input type="text" name="name" id="add_name_recipe" />
 
@@ -69,11 +69,11 @@
                     </li>
                 </ul>
             </form>
-            <div id="IdontCare">
+            <div class="IdontCare">
                 <fieldset>
                     <legend>Composants</legend>
 
-                    <ul id="components-list"></ul>
+                    <ul id="add-components-list"></ul>
                     <img src="../../img/add.png" id="add-recipe-component" />
                 </fieldset>
             </div>
@@ -85,6 +85,47 @@
             </div>
         </div>
 
+        <div id="edit-overlay" class="overlay">
+            <form name="editRecipeForm" id="edit-form" class="form">
+                <label for="edit-name-recipe">Nom</label>
+                <input type="text" name="name" id="edit-name-recipe" />
+
+                <ul class="qty-container">
+                    <li>
+                        <p>quantité pour</p>
+                    </li>
+                    <li>
+                        <input type="number" name="qty" id="edit-qty-recipe" />
+                    </li>
+                    <li>
+                        <select name="unity" id="edit-unity-select">
+                            <option value="kg">kg</option>
+                            <option value="g">g</option>
+                            <option value="mg">mg</option>
+                            <option value="L">L</option>
+                            <option value="cL">cL</option>
+                            <option value="mL">mL</option>
+                            <option value="piece">pièce-s</option>
+                        </select>
+                    </li>
+                </ul>
+            </form>
+            <div class="IdontCare">
+                <fieldset>
+                    <legend>Composants</legend>
+
+                    <ul id="edit-components-list"></ul>
+                    <img src="../../img/add.png" id="add-component-edit-btn" />
+                </fieldset>
+            </div>
+
+            <div class="topbar">
+                <h1 id="edit-cancel">Annuler</h1>
+                <h3 id="edit-validate-btn">Valider</h3>
+                <h2>Modifier recette</h2>
+            </div>
+        </div>
+
         <div
             id="add-component-overlay"
             class="overlay blured"
@@ -93,7 +134,7 @@
             <div class="box">
                 <h1 id="cancel-add-component">Annuler</h1>
                 <h3 id="new-ingredient">Créer</h3>
-                <div id="tab-selector">
+                <div class="tab-selector">
                     <div
                         id="ing-tab"
                         class="tab"
@@ -110,8 +151,8 @@
                     </div>
                 </div>
 
-                <div id="list-container">
-                    <ul id="add-comp-list"></ul>
+                <div class="list-container">
+                    <ul id="add-comp-list" class="comp-list"></ul>
                 </div>
 
                 <div id="add-comp-btn">Ajouter</div>
@@ -182,8 +223,110 @@
                 </div>
             </div>
         </div>
+
+        <div
+            id="edit-add-component-overlay"
+            class="overlay blured"
+            style="background-color: rgb(0, 0, 0, 0.2)"
+        >
+            <div class="box">
+                <h1 id="cancel-edit-add-component">Annuler</h1>
+                <h3 id="new-ingredient-edit">Créer</h3>
+                <div class="tab-selector">
+                    <div
+                        id="edit-ing-tab"
+                        class="tab"
+                        style="border-radius: 10px 0 0 10px"
+                    >
+                        Ingrédients
+                    </div>
+                    <div
+                        id="edit-rec-tab"
+                        class="tab"
+                        style="border-radius: 0 10px 10px 0"
+                    >
+                        Recettes
+                    </div>
+                </div>
+
+                <div class="list-container">
+                    <ul id="edit-add-comp-list" class="comp-list"></ul>
+                </div>
+
+                <div id="edit-add-comp-btn">Ajouter</div>
+            </div>
+            <div
+                class="overlay blured"
+                id="edit-new-ingredient-overlay"
+                style="background-color: rgb(0, 0, 0, 0.2)"
+            >
+                <div class="box">
+                    <img
+                        src="../../img/cross.png"
+                        id="edit-new-ingredient-cancel"
+                        class="cross"
+                    />
+                    <h2>Nouvel ingrédient</h2>
+                    <form name="editIngForm">
+                        <label for="edit-add_name_ingredient">Nom </label>
+                        <input
+                            type="text"
+                            id="edit-add-name-ingredient"
+                            name="name"
+                        />
+                        <fieldset>
+                            <legend>Prix</legend>
+                            <input
+                                type="radio"
+                                name="unity"
+                                value="unity"
+                                id="add_unity_choice1"
+                            />
+                            <label for="add_unity_choice1">Unité</label>
+                            <input
+                                type="radio"
+                                name="unity"
+                                value="kg"
+                                id="edit-add-unity-choice2"
+                            />
+                            <label for="edit-add-unity-choice2">Kilo</label>
+                            <input
+                                type="radio"
+                                name="unity"
+                                value="L"
+                                id="add_unity_choice3"
+                            />
+                            <label for="edit-add-unity-choice3">Litre</label>
+
+                            <div class="price_container">
+                                <ul>
+                                    <li>
+                                        <input type="number" name="price_qty" />
+                                    </li>
+                                    <li>
+                                        <select name="refer_unity"></select>
+                                    </li>
+                                    <li><p>=</p></li>
+                                    <li>
+                                        <input type="number" name="price" />
+                                    </li>
+                                    <li><p>€</p></li>
+                                </ul>
+                            </div>
+                        </fieldset>
+                        <div
+                            id="edit-new-ingredient-validate"
+                            class="validate_btn"
+                        >
+                            <h2>VALIDER</h2>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
     <script src="../js/navbar.js"></script>
-    <script src="../js/recipes.js"></script>
     <script src="../js/addRecipe.js"></script>
+    <script src="../js/editRecipe.js"></script>
+    <script src="../js/recipes.js"></script>
 </html>

@@ -222,7 +222,7 @@ function testRecipes() {
                             "unity": "g"
                         },
                         {
-                            "id": 9,
+                            "id": 10,
                             "group": "ingredients",
                             "qty": 15,
                             "unity": "g"
@@ -486,6 +486,7 @@ function initRecipes() {
             editBtn.style.cursor = 'pointer';
             editBtn.onclick = () => {
                 console.log( 'Editting ' + recipe.name + ' recipe.' );
+                editRecipe( recipe );
             }
             editItem.appendChild( editBtn );
 

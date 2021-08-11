@@ -125,7 +125,6 @@ newComponentBtn.onclick = () => {
     initIngredientsOnComp();
 }
 
-cancelAddComponent.style.cursor = 'pointer';
 cancelAddComponent.onclick = () => {
     addComponentOverlay.style.display = 'none';
 }
@@ -133,20 +132,15 @@ cancelAddComponent.onclick = () => {
 ingredientTab.style.backgroundColor = '#E65A29';
 recipeTab.style.backgroundColor = '#EA9170';
 
-ingredientTab.style.cursor = 'pointer';
 ingredientTab.onclick = () => {
     initIngredientsOnComp();
-
-
 }
 
-recipeTab.style.cursor = 'pointer';
 recipeTab.onclick = () => {
     initRecipesOnComp();
 }
 
 function initIngredientsOnComp() {
-    tab = 'ing';
     ingredientTab.style.backgroundColor = '#E65A29';
     recipeTab.style.backgroundColor = '#EA9170';
     newIngredientInComp.style.display = 'block';
@@ -332,7 +326,6 @@ function initIngredientsOnComp() {
 }
 
 function initRecipesOnComp() {
-    tab = 'rec';
     recipeTab.style.backgroundColor = '#E65A29';
     ingredientTab.style.backgroundColor = '#EA9170';
     newIngredientInComp.style.display = 'none';
@@ -437,7 +430,7 @@ function initRecipesOnComp() {
     } );
 }
 
-const compList = document.getElementById( 'components-list' );
+const compList = document.getElementById( 'add-components-list' );
 
 function insertComponent( comp ) {
 
@@ -459,10 +452,6 @@ function insertComponent( comp ) {
     let qtyInput = document.createElement( 'input' );
     qtyInput.type = 'number';
     qtyInput.id = comp.id + '_qty';
-    let qtyValue = parseInt( document.getElementById( comp.id ).value );
-    if ( qtyValue ) {
-        qtyInput = qtyValue;
-    }
 
 
     let unitySelector = document.createElement( 'select' );

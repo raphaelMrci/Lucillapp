@@ -148,13 +148,13 @@ const editOverlay = document.getElementById( 'edit_overlay' );
 const editCross = document.getElementById( 'edit_cross' );
 const deleteBtn = document.getElementById( 'delete' );
 const editValidateBtn = document.getElementById( 'edit_validate_btn' );
-const editReferpieceSelect = document.editForm.refer_unity;
+const editReferUnitySelect = document.editForm.refer_unity;
 
 const addOverlay = document.getElementById( 'add_overlay' );
 const addCross = document.getElementById( 'add_cross' );
 const addValidateBtn = document.getElementById( 'add_validate_btn' );
 const addBtn = document.getElementById( 'add_ingredient_btn' );
-const addReferpieceSelect = document.addForm.refer_unity;
+const addReferUnitySelect = document.addForm.refer_unity;
 
 addValidateBtn.style.cursor = 'pointer';
 addValidateBtn.onclick = () => {
@@ -326,7 +326,7 @@ function initIngredients() {
 // Validate modified ingredient
 editValidateBtn.style.cursor = 'pointer';
 editValidateBtn.onclick = () => {
-    if ( document.editForm.name.value && currentID && document.editForm.price.value && document.editForm.refer_piece.value && document.editForm.price_qty.value ) {
+    if ( document.editForm.name.value && currentID && document.editForm.price.value && document.editForm.refer_unity.value && document.editForm.price_qty.value ) {
         let newArray = ingredients;
         let currentIngredientIndex = ingredients.findIndex( ( ingredient ) => ingredient.id === currentID );
         let edittedIngredient = {};
@@ -359,7 +359,7 @@ document.addForm.unity.forEach( ( radio ) => {
                 let option = document.createElement( 'option' );
                 option.value = 'piece';
                 option.innerHTML += 'pièce';
-                addReferpieceSelect.appendChild( option );
+                addReferUnitySelect.appendChild( option );
             } else if ( radio.value == 'kg' ) {
                 let option1 = document.createElement( 'option' );
                 let option2 = document.createElement( 'option' );
@@ -373,9 +373,9 @@ document.addForm.unity.forEach( ( radio ) => {
                 option2.innerHTML += 'g';
                 option3.innerHTML += 'mg';
 
-                addReferpieceSelect.appendChild( option1 );
-                addReferpieceSelect.appendChild( option2 );
-                addReferpieceSelect.appendChild( option3 );
+                addReferUnitySelect.appendChild( option1 );
+                addReferUnitySelect.appendChild( option2 );
+                addReferUnitySelect.appendChild( option3 );
             } else if ( radio.value == 'L' ) {
                 let option1 = document.createElement( 'option' );
                 let option2 = document.createElement( 'option' );
@@ -389,9 +389,9 @@ document.addForm.unity.forEach( ( radio ) => {
                 option2.innerHTML += 'cL';
                 option3.innerHTML += 'mL';
 
-                addReferpieceSelect.appendChild( option1 );
-                addReferpieceSelect.appendChild( option2 );
-                addReferpieceSelect.appendChild( option3 );
+                addReferUnitySelect.appendChild( option1 );
+                addReferUnitySelect.appendChild( option2 );
+                addReferUnitySelect.appendChild( option3 );
             }
         }
     } );
@@ -406,7 +406,7 @@ document.editForm.unity.forEach( ( radio ) => {
                 let option = document.createElement( 'option' );
                 option.value = 'piece';
                 option.innerHTML += 'pièce';
-                editReferpieceSelect.appendChild( option );
+                editReferUnitySelect.appendChild( option );
             } else if ( radio.value == 'kg' ) {
                 let option1 = document.createElement( 'option' );
                 let option2 = document.createElement( 'option' );
@@ -420,9 +420,9 @@ document.editForm.unity.forEach( ( radio ) => {
                 option2.innerHTML += 'g';
                 option3.innerHTML += 'mg';
 
-                editReferpieceSelect.appendChild( option1 );
-                editReferpieceSelect.appendChild( option2 );
-                editReferpieceSelect.appendChild( option3 );
+                editReferUnitySelect.appendChild( option1 );
+                editReferUnitySelect.appendChild( option2 );
+                editReferUnitySelect.appendChild( option3 );
             } else if ( radio.value == 'L' ) {
                 let option1 = document.createElement( 'option' );
                 let option2 = document.createElement( 'option' );
@@ -436,9 +436,9 @@ document.editForm.unity.forEach( ( radio ) => {
                 option2.innerHTML += 'cL';
                 option3.innerHTML += 'mL';
 
-                editReferpieceSelect.appendChild( option1 );
-                editReferpieceSelect.appendChild( option2 );
-                editReferpieceSelect.appendChild( option3 );
+                editReferUnitySelect.appendChild( option1 );
+                editReferUnitySelect.appendChild( option2 );
+                editReferUnitySelect.appendChild( option3 );
             }
         }
     } );
@@ -458,7 +458,7 @@ function openEditOverlay( ingredient ) {
         let option = document.createElement( 'option' );
         option.value = 'piece';
         option.innerHTML += 'pièce';
-        editReferpieceSelect.appendChild( option );
+        editReferUnitySelect.appendChild( option );
     } else if ( ingredient.unity == 'kg' || ingredient.unity == 'g' || ingredient.unity == 'mg' ) {
         document.editForm.unity[ 1 ].checked = true;
         let option1 = document.createElement( 'option' );
@@ -473,9 +473,9 @@ function openEditOverlay( ingredient ) {
         option2.innerHTML += 'g';
         option3.innerHTML += 'mg';
 
-        editReferpieceSelect.appendChild( option1 );
-        editReferpieceSelect.appendChild( option2 );
-        editReferpieceSelect.appendChild( option3 );
+        editReferUnitySelect.appendChild( option1 );
+        editReferUnitySelect.appendChild( option2 );
+        editReferUnitySelect.appendChild( option3 );
     } else if ( ingredient.unity == 'L' || ingredient.unity == 'cL' || ingredient.unity == 'mL' ) {
         document.editForm.unity[ 2 ].checked = true;
         let option1 = document.createElement( 'option' );
@@ -490,9 +490,9 @@ function openEditOverlay( ingredient ) {
         option2.innerHTML += 'cL';
         option3.innerHTML += 'mL';
 
-        editReferpieceSelect.appendChild( option1 );
-        editReferpieceSelect.appendChild( option2 );
-        editReferpieceSelect.appendChild( option3 );
+        editReferUnitySelect.appendChild( option1 );
+        editReferUnitySelect.appendChild( option2 );
+        editReferUnitySelect.appendChild( option3 );
     } else {
         console.warn( "Ingredient don't have valid piece" );
     }
