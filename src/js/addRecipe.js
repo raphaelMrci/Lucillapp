@@ -453,6 +453,14 @@ function insertComponent( comp ) {
     qtyInput.type = 'number';
     qtyInput.id = comp.id + '_qty';
 
+    let deleteComponent = document.createElement( 'img' );
+    deleteComponent.src = '../../img/delete_component.png';
+    deleteComponent.classList.add( 'delete-component' );
+    deleteComponent.onclick = () => {
+        componentsList.splice( componentsList.findIndex( cmp => cmp.id == comp.id ), 1 );
+        li.remove();
+    }
+
 
     let unitySelector = document.createElement( 'select' );
     unitySelector.id = comp.id + '_unity';
@@ -461,6 +469,7 @@ function insertComponent( comp ) {
     li.appendChild( div );
     div.appendChild( title );
     div.appendChild( qtyContainer );
+    div.appendChild( deleteComponent );
     qtyContainer.appendChild( qtyInput );
     qtyContainer.appendChild( unitySelector );
 

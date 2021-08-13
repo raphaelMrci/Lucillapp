@@ -156,3 +156,7 @@ img#delete {
     flex-direction: row;
     align-items: center;
 }
+
+legend {
+    font-size: large;
+}

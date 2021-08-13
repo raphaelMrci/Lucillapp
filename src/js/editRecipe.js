@@ -180,10 +180,6 @@ function editRecipe( recipe ) {
 
 function insertEditComponent( comp, qty, unity ) {
 
-
-
-    console.log( comp );
-
     let li = document.createElement( 'li' );
 
 
@@ -206,7 +202,13 @@ function insertEditComponent( comp, qty, unity ) {
         qtyInput.value = qty;
     }
 
-
+    let deleteComponent = document.createElement( 'img' );
+    deleteComponent.src = '../../img/delete_component.png';
+    deleteComponent.classList.add( 'delete-component' );
+    deleteComponent.onclick = () => {
+        editCompList.splice( editCompList.findIndex( cmp => cmp.id == comp.id ), 1 );
+        li.remove();
+    }
 
     let unitySelector = document.createElement( 'select' );
     unitySelector.id = comp.id + '_editUnity';
@@ -215,6 +217,7 @@ function insertEditComponent( comp, qty, unity ) {
     li.appendChild( div );
     div.appendChild( title );
     div.appendChild( qtyContainer );
+    div.appendChild( deleteComponent );
     qtyContainer.appendChild( qtyInput );
     qtyContainer.appendChild( unitySelector );
 
@@ -483,23 +486,9 @@ function initIngredientsOnCompEdit() {
                 return 0;
             } );
 
-            let previousLetter = '#';
+            let previousLetter = '';
 
-            ingredients.forEach( ( ingredient, index ) => {
-                if ( index == 0 ) {
-                    previousLetter = ingredient.name.charAt( 0 ).toUpperCase();
-                    let letterIndexLi = document.createElement( 'li' );
-                    addCompListEdit.appendChild( letterIndexLi );
-
-                    let indexContainer = document.createElement( 'div' );
-                    indexContainer.className += 'list-index';
-                    letterIndexLi.appendChild( indexContainer );
-
-                    let letter = document.createElement( 'h2' );
-                    letter.innerHTML += ingredient.name.charAt( 0 ).toUpperCase();
-                    indexContainer.appendChild( letter );
-
-                }
+            ingredients.forEach( ( ingredient ) => {
 
                 if ( previousLetter != ingredient.name.charAt( 0 ).toUpperCase() ) {
                     previousLetter = ingredient.name.charAt( 0 ).toUpperCase();
@@ -589,23 +578,9 @@ function initRecipesOnCompEdit() {
                 return 0;
             } );
 
-            let previousLetter = '#';
+            let previousLetter = '';
 
-            recipes.forEach( ( recipe, index ) => {
-                if ( index == 0 ) {
-                    previousLetter = recipe.name.charAt( 0 ).toUpperCase();
-                    let letterIndexLi = document.createElement( 'li' );
-                    addCompListEdit.appendChild( letterIndexLi );
-
-                    let indexContainer = document.createElement( 'div' );
-                    indexContainer.className += 'list-index';
-                    letterIndexLi.appendChild( indexContainer );
-
-                    let letter = document.createElement( 'h2' );
-                    letter.innerHTML += recipe.name.charAt( 0 ).toUpperCase();
-                    indexContainer.appendChild( letter );
-
-                }
+            recipes.forEach( ( recipe ) => {
 
                 if ( previousLetter != recipe.name.charAt( 0 ).toUpperCase() ) {
                     previousLetter = recipe.name.charAt( 0 ).toUpperCase();

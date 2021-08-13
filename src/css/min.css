@@ -39,3 +39,7 @@ body {
 ::-webkit-scrollbar {
     display: none;
 }
+
+fieldset {
+    border: none;
+}

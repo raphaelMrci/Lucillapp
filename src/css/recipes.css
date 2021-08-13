@@ -345,3 +345,12 @@ li > h3 {
     color: white;
     background-color: #ea9170;
 }
+
+.delete-component {
+    margin-right: 2%;
+    cursor: pointer;
+}
+
+legend {
+    font-size: large;
+}
