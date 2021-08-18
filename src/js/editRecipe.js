@@ -20,6 +20,8 @@ const recipeTabEdit = document.getElementById( 'edit-rec-tab' );
 const newIngredientInCompEdit = document.getElementById( 'new-ingredient-edit' );
 const addComponentBtnEdit = document.getElementById( 'edit-add-comp-btn' );
 
+const deleteRecipe = document.getElementById( 'delete-recipe' );
+
 let addCompListEdit = document.getElementById( 'edit-add-comp-list' );
 
 let editCompList = [];
@@ -127,8 +129,40 @@ function editRecipe( recipe ) {
     editQtyField.value = recipe.qty;
     editUnitySelect.value = recipe.unity;
 
-    if ( recipe.components.length ) {
+    deleteRecipe.onclick = () => {
+        let recipes = [];
 
+        function loadRecipesToEdit() {
+            return new Promise( ( res, rej ) => {
+                storage.get( 'recipes', ( err, recArray ) => {
+                    if ( err ) rej( err );
+                    recipes = recArray;
+                    res();
+                } );
+            } );
+        }
+        loadRecipesToEdit().then( () => {
+
+            // Test if this recipe is used on another recipe
+            if ( recipes.some( rec => {
+                    return rec.components.some( comp => ( parseInt( comp.id ) == recipe.id && comp.group == 'recipes' ) );
+                } ) ) {
+                console.log( 'This recipe is used by another recipe...' );
+                return;
+            }
+
+            console.log( 'Deleting recipe...' );
+
+            let newArray = recipes;
+
+            newArray.splice( newArray.findIndex( rec => rec.id == recipe.id ), 1 );
+            setRecipes( newArray ).then( () => {
+                window.location.href = '../html/recipes.html';
+            } );
+        } );
+    }
+
+    if ( recipe.components.length ) {
 
         let recipes = [];
 
@@ -177,6 +211,7 @@ function editRecipe( recipe ) {
 
     }
 }
+
 
 function insertEditComponent( comp, qty, unity ) {
 
